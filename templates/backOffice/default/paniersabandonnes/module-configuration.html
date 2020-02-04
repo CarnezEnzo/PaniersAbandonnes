@@ -11,7 +11,7 @@
                 <div class="col-md-12">
                     {form name="paniersabandonnes.configuration.form"}
                         
-                        <form action="{url path="/admin/module/PaniersAbandonnes/configure"}" method="post">
+                        <form action="{url path='/admin/module/PaniersAbandonnes/configure'}" method="post">
                             {form_hidden_fields form=$form}
                             
                             {include file = "includes/inner-form-toolbar.html"
@@ -34,7 +34,7 @@
                                     {render_form_field form=$form field='delai_rappel_2_en_minutes' value=$delai_rappel_2_en_minutes}
                                     {render_form_field form=$form field='code_promo_rappel_2' value=$code_promo_rappel_2}
                                 </div>
-                            </div
+                            </div>
                         </form>
                     {/form}
                 </div>

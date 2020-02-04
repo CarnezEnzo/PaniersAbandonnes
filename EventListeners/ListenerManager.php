@@ -172,7 +172,7 @@ class ListenerManager implements EventSubscriberInterface
             $delaiSecondRappel = new \DateTime();
 
             $delaiSecondRappel
-                ->sub(
+                ->add(
                     new \DateInterval(
                         'PT' . PaniersAbandonnes::getConfigValue(PaniersAbandonnes::VAR_DELAI_RAPPEL_2) . 'M'
                     )
@@ -192,7 +192,7 @@ class ListenerManager implements EventSubscriberInterface
      */
     public function updateCart(CartEvent $event)
     {
-        // Medttre a jour le champ UpdatedAt
+        // Mettre à jour le champ UpdatedAt
         if ($this->isStorable($event->getCart())) {
             if (null !== $pa = PanierAbandonneQuery::create()->findOneByCartId($event->getCart()->getId())) {
                 $pa->setLastUpdate(new \DateTime())->save();
@@ -280,7 +280,6 @@ class ListenerManager implements EventSubscriberInterface
                         ],
                         $panierAbandonne->getLocale()
                     );
-
                     Tlog::getInstance()->notice("Envoi du rappel no. " . $nouvelEtat . " au client " . $panierAbandonne->getEmailClient());
                 } catch (\Exception $ex) {
                     Tlog::getInstance()->error("Echec de l'envoi du rappel no. " . $nouvelEtat . " au client " . $panierAbandonne->getEmailClient() . ". Raison:".$ex->getMessage());
