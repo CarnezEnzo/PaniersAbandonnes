@@ -22,9 +22,13 @@ composer require your-vendor/paniers-abandonnes-module:~1.0
 
 * Directement depuis votre back office, vous pouvez programmer un temps pour envoyer les emails à vos clients. Vous devez également programmer un cron
 Dans un terminal, tapez :
-``` crontab -e```
-Et ajoutez cette ligne à la fin de votre fichier pour effectuer une vérification toutes les 5 secondes:
-```*/2 * * * * /path/to/php /path/to/Theliadirectory Thelia examiner-paniers-abandonnes >> /path/to/thelia/log/panierabandonnes.log 2>&1```
+```
+crontab -e
+```
+Et ajoutez cette ligne à la fin de votre fichier pour effectuer une vérification toutes les minutes:
+```
+* * * * * /path/to/php /path/to/Theliadirectory/Thelia examiner-paniers-abandonnes >> /path/to/thelia/log/panierabandonnes.log 2>&1
+```
 Sauvegardez le.
 
 # en_US
@@ -51,7 +55,11 @@ composer require your-vendor/paniers-abandonnes-module:~1.0
 
 * Directly in your back office, you can set a timer to send the email to the customer. You also have to set up a cron.
 In a terminal, type :
-``` crontab -e```
-and add this line a the end of your crontab file to execute a verification every 5 seconds:
-```*/5 * * * * /path/to/php /path/to/Theliadirectory Thelia examiner-paniers-abandonnes >> /path/to/thelia/log/panierabandonnes.log 2>&1```
+``` 
+crontab -e
+```
+and add this line a the end of your crontab file to execute a verification every minute:
+```
+* * * * * /path/to/php /path/to/Theliadirectory/Thelia examiner-paniers-abandonnes >> /path/to/thelia/log/panierabandonnes.log 2>&1
+```
 Save it.
