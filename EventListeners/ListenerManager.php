@@ -194,9 +194,10 @@ class ListenerManager implements EventSubscriberInterface
     {
         // Mettre à jour le champ UpdatedAt
         if ($this->isStorable($event->getCart())) {
-            if (null !== $pa = PanierAbandonneQuery::create()->findOneByCartId($event->getCart()->getId())) {
+            if (null !== $pa = PanierAbandonneQuery::create()->findOneByCartId($event->getCart()->getId()))
                 $pa->setLastUpdate(new \DateTime())->save();
-            }
+            else
+                $this->storeCart($event->getCart());
         }
     }
 

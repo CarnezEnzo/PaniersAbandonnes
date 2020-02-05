@@ -42,7 +42,6 @@ class PaniersAbandonnes extends BaseModule
         self::setConfigValue(self::VAR_DELAI_RAPPEL_2, 10);
         self::setConfigValue(self::VAR_CODE_PROMO_RAPPEL_2, null);
 
-
         if (null === MessageQuery::create()->findOneByName(self::MESSAGE_RAPPEL_1)) {
 
             $message = new Message();

@@ -48,6 +48,9 @@ class ExaminerPaniers extends ContainerAwareCommand
     {
         $this->init();
 
+        // histoire d'avoir les bonnes urls dans le mail et pas 127.0.0.1 ;)
+        $this->initRequest();
+
         try {
             $this->getDispatcher()->dispatch(PaniersAbandonnesEvent::EXAMINER_PANIERS_EVENT, new DefaultActionEvent());
 

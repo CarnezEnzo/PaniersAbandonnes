@@ -188,7 +188,7 @@
                                 {loop type="panierabandonne.cartitem" name="pa" cart_id=$cart_id}
                                     <tr>
                                         <td>
-                                            {loop type="image" name="pi" product=$PRODUCT_ID width="118" height="85" limit=1 force_return="true"}
+                                            {loop type="image" name="pi" source="product" source_id=$PRODUCT_ID width="118" height="85" limit="1" force_return="true"}
                                                 <img src="{$IMAGE_URL}">
                                             {/loop}
                                         </td>
@@ -198,11 +198,6 @@
                                             
                                             <ul class="product-attributes">
                                                 {loop type="attribute_combination" name="product_options" product_sale_elements=$PRODUCT_SALE_ELEMENTS_ID order="manual"}
-                                                {$title = ($ATTRIBUTE_CHAPO) ? $ATTRIBUTE_CHAPO : $ATTRIBUTE_TITLE}
-                                                    <li>{$title}: {$ATTRIBUTE_AVAILABILITY_TITLE}</li>
-                                                {/loop}
-        
-                                                {loop name='declis' type='legacy_cart_item_attribute_combination' cart_item=$ITEM_ID}
                                                 {$title = ($ATTRIBUTE_CHAPO) ? $ATTRIBUTE_CHAPO : $ATTRIBUTE_TITLE}
                                                     <li>{$title}: {$ATTRIBUTE_AVAILABILITY_TITLE}</li>
                                                 {/loop}
@@ -274,7 +269,7 @@
                             <p>
                                 <img src="{image file="assets/img/icone-telephone.png" source="PaniersAbandonnes"}" alt="">
                                 <br>
-                                par téléphone<br>+33 1 83 64 72 32
+                                par téléphone<br>
                             </p>
     
                             <p>
