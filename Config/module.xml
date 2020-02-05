@@ -4,7 +4,7 @@
         xsi:schemaLocation="http://thelia.net/schema/dic/module http://thelia.net/schema/dic/module/module-2_2.xsd">
     <fullnamespace>PaniersAbandonnes\PaniersAbandonnes</fullnamespace>
     <descriptive locale="en_US">
-        <title>Abandonned carts management</title>
+        <title>Abandoned carts management</title>
     </descriptive>
     <descriptive locale="fr_FR">
         <title>Génération des paniers abandonnés</title>
@@ -20,6 +20,12 @@
             <company>CQFDev</company>
             <email>thelia@cqfdev.fr</email>
             <website>www.cqfdev.fr</website>
+        </author>
+        <author>
+            <name>Enzo CARNEZ</name>
+            <company>OpenStudio</company>
+            <email>ecarnez@openstudio.fr</email>
+            <website>openstudio.fr</website>
         </author>
     </authors>
     <type>classic</type>

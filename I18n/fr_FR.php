@@ -1,4 +1,8 @@
 <?php
 return array(
-    // 'an english string' => 'La traduction française de la chaine',
+    'Product' => 'Produit',
+    "Product Name" => "Nom du Produit",
+    "Price" => "Prix",
+    "Amount" => "Quantité",
+    "Total" => "Total"
 );

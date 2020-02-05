@@ -61,11 +61,11 @@ class PaniersAbandonnes extends BaseModule
                 $message->setLocale($locale);
 
                 $message->setTitle(
-                    Translator::getInstance()->trans('N\'abandonnez pas vos pieds !', [], self::DOMAIN_NAME, $locale)
+                    Translator::getInstance()->trans("Alors comme ça, vous êtes du genre à oublier votre panier ?", [], self::DOMAIN_NAME, $locale)
                 );
 
                 $message->setSubject(
-                    Translator::getInstance()->trans('N\'abandonnez pas vos pieds !', [], self::DOMAIN_NAME, $locale)
+                    Translator::getInstance()->trans("Alors comme ça, vous êtes du genre à oublier votre panier ?", [], self::DOMAIN_NAME, $locale)
                 );
             }
 

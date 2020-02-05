@@ -28,27 +28,12 @@ class ExaminerPaniers extends ContainerAwareCommand
     {
         $this
             ->setName("examiner-paniers-abandonnes")
-            ->setDescription("Examine les paniers abandonnes en evoie les mails de rappel si nécessaire.")
+            ->setDescription("Examine les paniers abandonnes en envoie les mails de rappel si nécessaire.")
         ;
-    }
-
-    protected function init()
-    {
-        $container = $this->getContainer();
-
-        $request = new Request();
-        $request->setSession(new Session(new MockArraySessionStorage()));
-
-        /** @var RequestStack $requestStack */
-        $requestStack = $container->get('request_stack');
-        $requestStack->push($request);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->init();
-
-        // histoire d'avoir les bonnes urls dans le mail et pas 127.0.0.1 ;)
         $this->initRequest();
 
         try {

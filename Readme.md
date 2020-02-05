@@ -1,6 +1,36 @@
-# Paniers Abandonnes
+# fr_FR
+## Paniers Abandonnes
 
-Add a short description here. You can also add a screenshot if needed.
+* Ce module vous permet d’envoyer un courrier électronique après un délai défini pour rappeler aux clients qu’ils ont des articles dans leurs paniers.
+
+## Installation
+
+### Manuellement
+
+* Copiez ce module directement dans votre répertoire ```<thelia_root>/local/modules/``` et verifier que le nom du module soit PaniersAbandonnes
+* Activez le dans votre back office Thelia
+
+### Composer
+
+Ajoutez cette ligne à votre fichier composer.json au coeur de votre Thélia
+
+```
+composer require your-vendor/paniers-abandonnes-module:~1.0
+```
+
+## Usage
+
+* Directement depuis votre back office, vous pouvez programmer un temps pour envoyer les emails à vos clients. Vous devez également programmer un cron
+Dans un terminal, tapez :
+``` crontab -e```
+Et ajoutez cette ligne à la fin de votre fichier pour effectuer une vérification toutes les 5 secondes:
+```*/2 * * * * /path/to/php /path/to/Theliadirectory Thelia examiner-paniers-abandonnes >> /path/to/thelia/log/panierabandonnes.log 2>&1```
+Sauvegardez le.
+
+# en_US
+## Paniers Abandonnes
+
+* This module allows you to send an email after a defined time to remember customers that they have items in their carts.
 
 ## Installation
 
@@ -19,37 +49,9 @@ composer require your-vendor/paniers-abandonnes-module:~1.0
 
 ## Usage
 
-Explain here how to use your module, how to configure it, etc.
-
-## Hook
-
-If your module use one or more hook, fill this part. Explain which hooks are used.
-
-
-## Loop
-
-If your module declare one or more loop, describe them here like this :
-
-[loop name]
-
-### Input arguments
-
-|Argument |Description |
-|---      |--- |
-|**arg1** | describe arg1 with an exemple. |
-|**arg2** | describe arg2 with an exemple. |
-
-### Output arguments
-
-|Variable   |Description |
-|---        |--- |
-|$VAR1    | describe $VAR1 variable |
-|$VAR2    | describe $VAR2 variable |
-
-### Exemple
-
-Add a complete exemple of your loop
-
-## Other ?
-
-If you have other think to put, feel free to complete your readme as you want.
+* Directly in your back office, you can set a timer to send the email to the customer. You also have to set up a cron.
+In a terminal, type :
+``` crontab -e```
+and add this line a the end of your crontab file to execute a verification every 5 seconds:
+```*/5 * * * * /path/to/php /path/to/Theliadirectory Thelia examiner-paniers-abandonnes >> /path/to/thelia/log/panierabandonnes.log 2>&1```
+Save it.
