@@ -6,5 +6,6 @@ return array(
     "VOICI LE CONTENU DE VOTRE PANIER :" => "HERE IS THE CONTENT OF YOUR CART :",
     "Configuration Paniers abandonnés" => "Abandoned carts  ",
     "Votre commande vous attend ! " => "Your order is waiting for you !",
-    "RETOURNER À MON PANIER" => "GO BACK TO MY CART"
+    "RETOURNER À MON PANIER" => "GO BACK TO MY CART",
+    "N'hésitez plus! Profitez d'une réduction dès maintenant avec le code :" => "Do not hesitate! Claim your free discount thanks to this promotional code :"
 );

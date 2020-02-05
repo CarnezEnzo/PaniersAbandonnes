@@ -71,7 +71,6 @@
 
             td.content {
                 padding-right: 20px;
-                padding-bottom: 30px;
             }
 
             td.sidebar {
@@ -111,7 +110,7 @@
                 background-color: #fff;
                 padding: 10px;
                 width: 80%;
-                margin: 0 auto 40px;
+                margin: auto;
             }
 
             table.panier {
@@ -254,5 +253,7 @@
     </table>
     <br />
 
-    {intl l="Have a nice day."}<br />
+    {block name="footer"}
+    {/block}
+
 {/block}

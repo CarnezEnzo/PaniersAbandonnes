@@ -1,6 +1,12 @@
 {extends file="layout-mail-rappel.tpl"}
 
 {block name="contenu"}
-    <p class="title">{intl l="VOTRE PANIER SE SENT SEUL" d="paniersabandonnes"}</p>
-    <p class="left">{intl l="Voici ce qu’il contient :" d="paniersabandonnes"}</p>
+    <p class="title">{intl l="VOICI LE CONTENU DE VOTRE PANIER :" d="paniersabandonnes"}</p>
+{/block}
+
+{block name="footer"}
+    {if $code_promo != null}
+    <p>{intl l="N'hésitez plus! Profitez d'une réduction dès maintenant avec le code :" d="paniersabandonnes"} <p style="color: #ef476b;">{$code_promo}</p></p>
+    {/if}
+    <p class="right">{intl l="Have a nice day."}</p>
 {/block}
