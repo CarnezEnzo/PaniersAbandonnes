@@ -90,11 +90,11 @@ class PaniersAbandonnes extends BaseModule
                 $message->setLocale($locale);
 
                 $message->setTitle(
-                    Translator::getInstance()->trans('Votre panier vous attend toujours', [], self::DOMAIN_NAME, $locale)
+                    Translator::getInstance()->trans('Votre panier vous attend toujours !', [], self::DOMAIN_NAME, $locale)
                 );
 
                 $message->setSubject(
-                    Translator::getInstance()->trans('Votre panier vous attend toujours', [], self::DOMAIN_NAME, $locale)
+                    Translator::getInstance()->trans('Votre panier vous attend toujours !', [], self::DOMAIN_NAME, $locale)
                 );
             }
 

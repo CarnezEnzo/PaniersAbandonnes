@@ -33,6 +33,7 @@
 
         table.main {
             margin: 0 auto;
+            width: 100%;
         }
 
         p {
