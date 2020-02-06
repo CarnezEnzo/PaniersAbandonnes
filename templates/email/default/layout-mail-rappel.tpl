@@ -33,131 +33,99 @@
 
         table.main {
             margin: 0 auto;
-            }
+        }
 
-            p {
-                margin-top: 10px;
-                text-align: center;
-                margin-bottom: 10px;
-            }
+        p {
+            margin-top: 10px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
 
-            p.left {
-                text-align: left;
-            }
+        p.left {
+            text-align: left;
+        }
 
-            table.wrapper {
-                width: 100%;
-            }
+        table.wrapper {
+            width: 100%;
+        }
 
-            td.separator {
-                padding: 0;
-            }
+        td.separator p {
+            background-color: #f9f5f4;
+            height: 45px;
+            margin: 0;
+        }
 
-            td.separator p {
-                background-color: #f9f5f4;
-                height: 45px;
-                margin: 0;
-            }
+        td.head p {
+            background-color: #3f3a38;
+            height: 50px;
+            margin: 0;
+        }
 
-            td.head p {
-                background-color: #3f3a38;
-                height: 50px;
-                margin: 0;
-            }
+        td.head-bottom p {
+            height: 220px;
+        }
 
-            td.head-bottom p {
-                height: 220px;
-            }
+        td.sidebar hr {
+            width: 30%;
+        }
 
-            td.content {
-                padding-right: 20px;
-            }
+        .title {
+            font-weight: bold;
+            font-size: 140%;
+        }
 
-            td.sidebar {
-                color: #6d5f5a;
-                background-color: #f9f5f4;
-                vertical-align: top;
-                padding-left: 10px;
-                padding-right: 10px;
-                white-space: nowrap;
-            }
+        .wrapper-panier {
+            background-color: #fff;
+            padding: 10px;
+            margin: auto;
+        }
 
-            td.footer {
-                color: #6d5f5a;
-                background-color: #f9f5f4;
-                padding: 20px 0;
-            }
+        table.panier {
+            border-spacing: 0;
+            border-collapse : collapse;
+            width: 100%;
+        }
 
-            td.sidebar hr {
-                width: 30%;
-            }
+        table.panier td {
+            color: #6d5f5a;
+            vertical-align: top;
+            padding: 10px;
+        }
 
-            .title {
-                font-weight: bold;
-                font-size: 140%;
-            }
+        table.panier td.head {
+            font-weight: 600;
+            border-bottom: 1px solid #6d5f5a;
+        }
 
-            .sidebar-subtitle {
-                font-size: 90%;
-            }
+        table.panier td.foot {
+            font-weight: 600;
+            border-top: 1px solid #6d5f5a;
+            border-bottom: 1px solid #a79893;
+        }
 
-            .subtitle {
-                font-weight: 600;
-                color: #6d5f5a;
-            }
+        table.panier td p {
+            margin-top: 0;
+        }
 
-            .wrapper-panier {
-                background-color: #fff;
-                padding: 10px;
-                width: 80%;
-                margin: auto;
-            }
+        table.panier td small {
+            font-size: 75%;
+        }
 
-            table.panier {
-                border-spacing: 0;
-                border-collapse : collapse;
-                width: 100%;
-            }
+        .product-attributes, .product-attributes li {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
 
-            table.panier td {
-                color: #6d5f5a;
-                vertical-align: top;
-                padding: 10px;
-            }
+        .btn-panier {
+            color: #fff;
+            background-color: #f15a24;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
 
-            table.panier td.head {
-                font-weight: 600;
-                border-bottom: 1px solid #6d5f5a;
-            }
-
-            table.panier td.foot {
-                font-weight: 600;
-                border-top: 1px solid #6d5f5a;
-                border-bottom: 1px solid #a79893;
-            }
-
-            table.panier td p {
-                margin-top: 0;
-            }
-
-            table.panier td small {
-                font-size: 75%;
-            }
-
-            .product-attributes, .product-attributes li {
-                list-style-type: none;
-                padding: 0;
-                margin: 0;
-            }
-
-            .btn-panier {
-                color: #fff;
-                background-color: #f15a24;
-                padding: 10px 20px;
-                text-transform: uppercase;
-                text-decoration: none;
-            }
-</style>
+    </style>
 
     <table class="main">
         <tr>
