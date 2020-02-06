@@ -2,12 +2,12 @@
 <module xmlns="http://thelia.net/schema/dic/module"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://thelia.net/schema/dic/module http://thelia.net/schema/dic/module/module-2_2.xsd">
-    <fullnamespace>PaniersAbandonnes\PaniersAbandonnes</fullnamespace>
+    <fullnamespace>AbandonedCartReminder\AbandonedCartReminder</fullnamespace>
     <descriptive locale="en_US">
-        <title>Abandoned carts management</title>
+        <title>Abandoned Carts Reminder</title>
     </descriptive>
     <descriptive locale="fr_FR">
-        <title>Génération des paniers abandonnés</title>
+        <title>Rappel des Paniers Abandonnés</title>
     </descriptive>
     <languages>
         <language>en_US</language>

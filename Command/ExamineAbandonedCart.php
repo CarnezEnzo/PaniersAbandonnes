@@ -10,9 +10,9 @@
 /*      file that was distributed with this source code.                             */
 /*************************************************************************************/
 
-namespace PaniersAbandonnes\Command;
+namespace AbandonedCartReminder\Command;
 
-use PaniersAbandonnes\Events\PaniersAbandonnesEvent;
+use AbandonedCartReminder\Events\AbandonedCartEvent;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -22,12 +22,12 @@ use Thelia\Core\Event\DefaultActionEvent;
 use Thelia\Core\HttpFoundation\Request;
 use Thelia\Core\HttpFoundation\Session\Session;
 
-class ExaminerPaniers extends ContainerAwareCommand
+class ExamineAbandonedCart extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
-            ->setName("examiner-paniers-abandonnes")
+            ->setName("examine-abandoned-carts")
             ->setDescription("Examine les paniers abandonnes en envoie les mails de rappel si nécessaire.")
         ;
     }
@@ -37,7 +37,7 @@ class ExaminerPaniers extends ContainerAwareCommand
         $this->initRequest();
 
         try {
-            $this->getDispatcher()->dispatch(PaniersAbandonnesEvent::EXAMINER_PANIERS_EVENT, new DefaultActionEvent());
+            $this->getDispatcher()->dispatch(AbandonedCartEvent::EXAMINE_CARTS_EVENT, new DefaultActionEvent());
 
         } catch (\Exception $ex) {
             $output->writeln(

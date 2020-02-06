@@ -14,9 +14,9 @@
  * Date: 05/03/2016 18:11
  */
 
-namespace PaniersAbandonnes\Hook;
+namespace AbandonedCartReminder\Hook;
 
-use PaniersAbandonnes\PaniersAbandonnes;
+use AbandonedCartReminder\AbandonedCartReminder;
 use Thelia\Core\Event\Hook\HookRenderEvent;
 use Thelia\Core\Hook\BaseHook;
 use Thelia\Model\ModuleConfig;
@@ -32,7 +32,7 @@ class HookManager extends BaseHook
         $vars = [];
 
         // Passer toutes les variables de configuration au template
-        if (null !== $params = ModuleConfigQuery::create()->findByModuleId(PaniersAbandonnes::getModuleId())) {
+        if (null !== $params = ModuleConfigQuery::create()->findByModuleId(AbandonedCartReminder::getModuleId())) {
             /** @var ModuleConfig $param */
             foreach ($params as $param) {
                 $vars[ $param->getName() ] = $param->getValue();
@@ -40,7 +40,7 @@ class HookManager extends BaseHook
         }
 
         $event->add(
-            $this->render('paniersabandonnes/module-configuration.html', $vars)
+            $this->render('AbandonedCart/module-configuration.html', $vars)
         );
     }
 }

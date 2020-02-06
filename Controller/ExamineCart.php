@@ -12,21 +12,21 @@
  * Created by Franck Allimant, CQFDev <franck@cqfdev.fr>
  * Date: 14/05/2017 11:31
  */
-namespace PaniersAbandonnes\Controller;
+namespace AbandonedCartReminder\Controller;
 
-use PaniersAbandonnes\Events\PaniersAbandonnesEvent;
+use AbandonedCartReminder\Events\AbandonedCartEvent;
 use Thelia\Controller\Front\BaseFrontController;
 use Thelia\Core\Event\DefaultActionEvent;
 use Thelia\Core\HttpFoundation\Response;
 use Thelia\Log\Tlog;
 
-class ExaminerPaniers extends BaseFrontController
+class ExamineCart extends BaseFrontController
 {
-    public function examiner()
+    public function examine()
     {
         try {
             $this->getDispatcher()->dispatch(
-                PaniersAbandonnesEvent::EXAMINER_PANIERS_EVENT,
+                AbandonedCartEvent::EXAMINE_CARTS_EVENT,
                 new DefaultActionEvent()
             );
 

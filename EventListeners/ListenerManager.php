@@ -14,12 +14,12 @@
  * Date: 20/12/2015 20:25
  */
 
-namespace PaniersAbandonnes\EventListeners;
+namespace AbandonedCartReminder\EventListeners;
 
-use PaniersAbandonnes\Events\PaniersAbandonnesEvent;
-use PaniersAbandonnes\Model\PanierAbandonne;
-use PaniersAbandonnes\Model\PanierAbandonneQuery;
-use PaniersAbandonnes\PaniersAbandonnes;
+use AbandonedCartReminder\Events\AbandonedCartEvent;
+use AbandonedCartReminder\Model\AbandonedCart;
+use AbandonedCartReminder\Model\AbandonedCartQuery;
+use AbandonedCartReminder\AbandonedCartReminder;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -106,12 +106,12 @@ class ListenerManager implements EventSubscriberInterface
         if ($this->isStorable($cart)) {
             if (null !== $data = $this->getCustomerEmailAndLocale()) {
                 // Supprimer tous les paniers relatifs à ce client
-                PanierAbandonneQuery::create()
+                AbandonedCartQuery::create()
                     ->filterByEmailClient($data['email'], Criteria::LIKE)
                     ->delete();
 
                 // Enregistrer le nouveau panier.
-                (new PanierAbandonne())
+                (new AbandonedCart())
                     ->setCartId($cart->getId())
                     ->setEmailClient($data['email'])
                     ->setLocale($data['locale'])
@@ -150,7 +150,7 @@ class ListenerManager implements EventSubscriberInterface
         $originalCart = $event->getOriginalCart();
 
         // Supprimer le vieux panier
-        if (null !== $pa = PanierAbandonneQuery::create()->findOneByCartId($originalCart->getId())) {
+        if (null !== $pa = AbandonedCartQuery::create()->findOneByCartId($originalCart->getId())) {
             $pa->delete();
         }
 
@@ -174,7 +174,7 @@ class ListenerManager implements EventSubscriberInterface
             $delaiSecondRappel
                 ->add(
                     new \DateInterval(
-                        'PT' . PaniersAbandonnes::getConfigValue(PaniersAbandonnes::VAR_DELAI_RAPPEL_2) . 'M'
+                        'PT' . AbandonedCartReminder::getConfigValue(AbandonedCartReminder::VAR_DELAI_RAPPEL_2) . 'M'
                     )
                 );
 
@@ -194,7 +194,7 @@ class ListenerManager implements EventSubscriberInterface
     {
         // Mettre à jour le champ UpdatedAt
         if ($this->isStorable($event->getCart())) {
-            if (null !== $pa = PanierAbandonneQuery::create()->findOneByCartId($event->getCart()->getId()))
+            if (null !== $pa = AbandonedCartQuery::create()->findOneByCartId($event->getCart()->getId()))
                 $pa->setLastUpdate(new \DateTime())->save();
             else
                 $this->storeCart($event->getCart());
@@ -211,7 +211,7 @@ class ListenerManager implements EventSubscriberInterface
         $order = $event->getOrder();
 
         if ($order->isPaid()) {
-            if (null !== $pa = PanierAbandonneQuery::create()->findOneByCartId($order->getCartId())) {
+            if (null !== $pa = AbandonedCartQuery::create()->findOneByCartId($order->getCartId())) {
                 $pa->delete();
             }
         }
@@ -226,74 +226,74 @@ class ListenerManager implements EventSubscriberInterface
     {
         Tlog::getInstance()->notice("Examen des paniers abandonnes");
 
-        $this->envoyerRappels(
-            PaniersAbandonnes::VAR_DELAI_RAPPEL_1,
-            PanierAbandonne::RAPPEL_PAS_ENVOYE,
-            PaniersAbandonnes::MESSAGE_RAPPEL_1,
-            PanierAbandonne::RAPPEL_1_ENVOYE
+        $this->sendReminder(
+            AbandonedCartReminder::VAR_DELAI_RAPPEL_1,
+            AbandonedCart::RAPPEL_PAS_ENVOYE,
+            AbandonedCartReminder::MESSAGE_RAPPEL_1,
+            AbandonedCart::RAPPEL_1_ENVOYE
         );
 
-        $this->envoyerRappels(
-            PaniersAbandonnes::VAR_DELAI_RAPPEL_2,
-            PanierAbandonne::RAPPEL_1_ENVOYE,
-            PaniersAbandonnes::MESSAGE_RAPPEL_2,
-            PanierAbandonne::RAPPEL_2_ENVOYE
+        $this->sendReminder(
+            AbandonedCartReminder::VAR_DELAI_RAPPEL_2,
+            AbandonedCart::RAPPEL_1_ENVOYE,
+            AbandonedCartReminder::MESSAGE_RAPPEL_2,
+            AbandonedCart::RAPPEL_2_ENVOYE
         );
 
         // Supprimer les entrées auxquelles on a envoyé le 2 eme rappel
-        PanierAbandonneQuery::create()
-            ->filterByEtatRappel(PanierAbandonne::RAPPEL_2_ENVOYE)
+        AbandonedCartQuery::create()
+            ->filterBystatus(AbandonedCart::RAPPEL_2_ENVOYE)
             ->delete()
         ;
     }
 
     /**
      * @param $varDelai
-     * @param $filtreEtatRappel
+     * @param $filtreStatus
      * @param $codeMessage
      * @param $nouvelEtat
      * @throws \Exception
      * @throws \Propel\Runtime\Exception\PropelException
      */
-    protected function envoyerRappels($varDelai, $filtreEtatRappel, $codeMessage, $nouvelEtat)
+    protected function sendReminder($varDelai, $filtreStatus, $codeMessage, $nouvelEtat)
     {
         $delai = new \DateTime();
-        $delai = $delai->sub(new \DateInterval('PT' . PaniersAbandonnes::getConfigValue($varDelai) . 'M'));
+        $delai = $delai->sub(new \DateInterval('PT' . AbandonedCartReminder::getConfigValue($varDelai) . 'M'));
 
-        $panierAbandonnes = PanierAbandonneQuery::create()
-            ->filterByEtatRappel($filtreEtatRappel)
+        $AbandonedCarts = AbandonedCartQuery::create()
+            ->filterByStatus($filtreStatus)
             ->filterByLastUpdate($delai, Criteria::LESS_THAN)
             ->find();
 
-        /** @var PanierAbandonne $panierAbandonne */
-        foreach ($panierAbandonnes as $panierAbandonne) {
+        /** @var AbandonedCart $AbandonedCart */
+        foreach ($AbandonedCarts as $AbandonedCart) {
             // Vérifier que le cart n'est pas vide.
-            if ($panierAbandonne->getCart()->countCartItems() > 0) {
+            if ($AbandonedCart->getCart()->countCartItems() > 0) {
                 try {
                     $this->mailer->sendEmailMessage(
                         $codeMessage,
                         [ConfigQuery::getStoreEmail() => ConfigQuery::getStoreName()],
-                        [$panierAbandonne->getEmailClient() => $panierAbandonne->getEmailClient()],
+                        [$AbandonedCart->getEmailClient() => $AbandonedCart->getEmailClient()],
                         [
-                            'cart_id' => $panierAbandonne->getCartId(),
-                            'login_token' => $panierAbandonne->getLoginToken(),
-                            'code_promo' => PaniersAbandonnes::getConfigValue(PaniersAbandonnes::VAR_CODE_PROMO_RAPPEL_2)
+                            'cart_id' => $AbandonedCart->getCartId(),
+                            'login_token' => $AbandonedCart->getLoginToken(),
+                            'code_promo' => AbandonedCartReminder::getConfigValue(AbandonedCartReminder::VAR_CODE_PROMO_RAPPEL_2)
                         ],
-                        $panierAbandonne->getLocale()
+                        $AbandonedCart->getLocale()
                     );
-                    Tlog::getInstance()->notice("Envoi du rappel no. " . $nouvelEtat . " au client " . $panierAbandonne->getEmailClient());
+                    Tlog::getInstance()->notice("Envoi du rappel no. " . $nouvelEtat . " au client " . $AbandonedCart->getEmailClient());
                 } catch (\Exception $ex) {
-                    Tlog::getInstance()->error("Echec de l'envoi du rappel no. " . $nouvelEtat . " au client " . $panierAbandonne->getEmailClient() . ". Raison:".$ex->getMessage());
+                    Tlog::getInstance()->error("Echec de l'envoi du rappel no. " . $nouvelEtat . " au client " . $AbandonedCart->getEmailClient() . ". Raison:".$ex->getMessage());
                 }
 
-                $panierAbandonne->clearAllReferences();
+                $AbandonedCart->clearAllReferences();
 
-                $panierAbandonne
-                    ->setEtatRappel($nouvelEtat)
+                $AbandonedCart
+                    ->setstatus($nouvelEtat)
                     ->save();
             } else {
                 // Supprimer ce panier obsolète
-                $panierAbandonne->delete();
+                $AbandonedCart->delete();
             }
         }
     }
@@ -313,7 +313,7 @@ class ListenerManager implements EventSubscriberInterface
 
             TheliaEvents::ORDER_UPDATE_STATUS => [ 'orderStatusUpdate', 100 ],
 
-            PaniersAbandonnesEvent::EXAMINER_PANIERS_EVENT => [ 'cron', 100 ]
+            AbandonedCartEvent::EXAMINE_CARTS_EVENT => [ 'cron', 100 ]
         ];
     }
 }

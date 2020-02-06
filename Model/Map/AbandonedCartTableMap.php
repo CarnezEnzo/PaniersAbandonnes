@@ -1,9 +1,9 @@
 <?php
 
-namespace PaniersAbandonnes\Model\Map;
+namespace AbandonedCartReminder\Model\Map;
 
-use PaniersAbandonnes\Model\PanierAbandonne;
-use PaniersAbandonnes\Model\PanierAbandonneQuery;
+use AbandonedCartReminder\Model\AbandonedCart;
+use AbandonedCartReminder\Model\AbandonedCartQuery;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\InstancePoolTrait;
@@ -16,7 +16,7 @@ use Propel\Runtime\Map\TableMapTrait;
 
 
 /**
- * This class defines the structure of the 'panier_abandonne' table.
+ * This class defines the structure of the 'abandoned_cart' table.
  *
  *
  *
@@ -26,14 +26,14 @@ use Propel\Runtime\Map\TableMapTrait;
  * (i.e. if it's a text column type).
  *
  */
-class PanierAbandonneTableMap extends TableMap
+class AbandonedCartTableMap extends TableMap
 {
     use InstancePoolTrait;
     use TableMapTrait;
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'PaniersAbandonnes.Model.Map.PanierAbandonneTableMap';
+    const CLASS_NAME = 'AbandonedCart.Model.Map.AbandonedCartTableMap';
 
     /**
      * The default database name for this class
@@ -43,17 +43,17 @@ class PanierAbandonneTableMap extends TableMap
     /**
      * The table name for this class
      */
-    const TABLE_NAME = 'panier_abandonne';
+    const TABLE_NAME = 'abandoned_cart';
 
     /**
      * The related Propel class for this table
      */
-    const OM_CLASS = '\\PaniersAbandonnes\\Model\\PanierAbandonne';
+    const OM_CLASS = '\\AbandonedCartReminder\\Model\\AbandonedCart';
 
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'PaniersAbandonnes.Model.PanierAbandonne';
+    const CLASS_DEFAULT = 'AbandonedCart.Model.AbandonedCart';
 
     /**
      * The total number of columns
@@ -73,37 +73,37 @@ class PanierAbandonneTableMap extends TableMap
     /**
      * the column name for the ID field
      */
-    const ID = 'panier_abandonne.ID';
+    const ID = 'abandoned_cart.ID';
 
     /**
      * the column name for the CART_ID field
      */
-    const CART_ID = 'panier_abandonne.CART_ID';
+    const CART_ID = 'abandoned_cart.CART_ID';
 
     /**
      * the column name for the EMAIL_CLIENT field
      */
-    const EMAIL_CLIENT = 'panier_abandonne.EMAIL_CLIENT';
+    const EMAIL_CLIENT = 'abandoned_cart.EMAIL_CLIENT';
 
     /**
      * the column name for the LOCALE field
      */
-    const LOCALE = 'panier_abandonne.LOCALE';
+    const LOCALE = 'abandoned_cart.LOCALE';
 
     /**
-     * the column name for the ETAT_RAPPEL field
+     * the column name for the status field
      */
-    const ETAT_RAPPEL = 'panier_abandonne.ETAT_RAPPEL';
+    const status = 'abandoned_cart.status';
 
     /**
      * the column name for the LOGIN_TOKEN field
      */
-    const LOGIN_TOKEN = 'panier_abandonne.LOGIN_TOKEN';
+    const LOGIN_TOKEN = 'abandoned_cart.LOGIN_TOKEN';
 
     /**
      * the column name for the LAST_UPDATE field
      */
-    const LAST_UPDATE = 'panier_abandonne.LAST_UPDATE';
+    const LAST_UPDATE = 'abandoned_cart.LAST_UPDATE';
 
     /**
      * The default string format for model objects of the related table
@@ -117,11 +117,11 @@ class PanierAbandonneTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'CartId', 'EmailClient', 'Locale', 'EtatRappel', 'LoginToken', 'LastUpdate', ),
-        self::TYPE_STUDLYPHPNAME => array('id', 'cartId', 'emailClient', 'locale', 'etatRappel', 'loginToken', 'lastUpdate', ),
-        self::TYPE_COLNAME       => array(PanierAbandonneTableMap::ID, PanierAbandonneTableMap::CART_ID, PanierAbandonneTableMap::EMAIL_CLIENT, PanierAbandonneTableMap::LOCALE, PanierAbandonneTableMap::ETAT_RAPPEL, PanierAbandonneTableMap::LOGIN_TOKEN, PanierAbandonneTableMap::LAST_UPDATE, ),
-        self::TYPE_RAW_COLNAME   => array('ID', 'CART_ID', 'EMAIL_CLIENT', 'LOCALE', 'ETAT_RAPPEL', 'LOGIN_TOKEN', 'LAST_UPDATE', ),
-        self::TYPE_FIELDNAME     => array('id', 'cart_id', 'email_client', 'locale', 'etat_rappel', 'login_token', 'last_update', ),
+        self::TYPE_PHPNAME       => array('Id', 'CartId', 'EmailClient', 'Locale', 'status', 'LoginToken', 'LastUpdate', ),
+        self::TYPE_STUDLYPHPNAME => array('id', 'cartId', 'emailClient', 'locale', 'status', 'loginToken', 'lastUpdate', ),
+        self::TYPE_COLNAME       => array(AbandonedCartTableMap::ID, AbandonedCartTableMap::CART_ID, AbandonedCartTableMap::EMAIL_CLIENT, AbandonedCartTableMap::LOCALE, AbandonedCartTableMap::status, AbandonedCartTableMap::LOGIN_TOKEN, AbandonedCartTableMap::LAST_UPDATE, ),
+        self::TYPE_RAW_COLNAME   => array('ID', 'CART_ID', 'EMAIL_CLIENT', 'LOCALE', 'status', 'LOGIN_TOKEN', 'LAST_UPDATE', ),
+        self::TYPE_FIELDNAME     => array('id', 'cart_id', 'email_client', 'locale', 'status', 'login_token', 'last_update', ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
     );
 
@@ -132,11 +132,11 @@ class PanierAbandonneTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'CartId' => 1, 'EmailClient' => 2, 'Locale' => 3, 'EtatRappel' => 4, 'LoginToken' => 5, 'LastUpdate' => 6, ),
-        self::TYPE_STUDLYPHPNAME => array('id' => 0, 'cartId' => 1, 'emailClient' => 2, 'locale' => 3, 'etatRappel' => 4, 'loginToken' => 5, 'lastUpdate' => 6, ),
-        self::TYPE_COLNAME       => array(PanierAbandonneTableMap::ID => 0, PanierAbandonneTableMap::CART_ID => 1, PanierAbandonneTableMap::EMAIL_CLIENT => 2, PanierAbandonneTableMap::LOCALE => 3, PanierAbandonneTableMap::ETAT_RAPPEL => 4, PanierAbandonneTableMap::LOGIN_TOKEN => 5, PanierAbandonneTableMap::LAST_UPDATE => 6, ),
-        self::TYPE_RAW_COLNAME   => array('ID' => 0, 'CART_ID' => 1, 'EMAIL_CLIENT' => 2, 'LOCALE' => 3, 'ETAT_RAPPEL' => 4, 'LOGIN_TOKEN' => 5, 'LAST_UPDATE' => 6, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'cart_id' => 1, 'email_client' => 2, 'locale' => 3, 'etat_rappel' => 4, 'login_token' => 5, 'last_update' => 6, ),
+        self::TYPE_PHPNAME       => array('Id' => 0, 'CartId' => 1, 'EmailClient' => 2, 'Locale' => 3, 'status' => 4, 'LoginToken' => 5, 'LastUpdate' => 6, ),
+        self::TYPE_STUDLYPHPNAME => array('id' => 0, 'cartId' => 1, 'emailClient' => 2, 'locale' => 3, 'status' => 4, 'loginToken' => 5, 'lastUpdate' => 6, ),
+        self::TYPE_COLNAME       => array(AbandonedCartTableMap::ID => 0, AbandonedCartTableMap::CART_ID => 1, AbandonedCartTableMap::EMAIL_CLIENT => 2, AbandonedCartTableMap::LOCALE => 3, AbandonedCartTableMap::status => 4, AbandonedCartTableMap::LOGIN_TOKEN => 5, AbandonedCartTableMap::LAST_UPDATE => 6, ),
+        self::TYPE_RAW_COLNAME   => array('ID' => 0, 'CART_ID' => 1, 'EMAIL_CLIENT' => 2, 'LOCALE' => 3, 'status' => 4, 'LOGIN_TOKEN' => 5, 'LAST_UPDATE' => 6, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'cart_id' => 1, 'email_client' => 2, 'locale' => 3, 'status' => 4, 'login_token' => 5, 'last_update' => 6, ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
     );
 
@@ -150,17 +150,17 @@ class PanierAbandonneTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('panier_abandonne');
-        $this->setPhpName('PanierAbandonne');
-        $this->setClassName('\\PaniersAbandonnes\\Model\\PanierAbandonne');
-        $this->setPackage('PaniersAbandonnes.Model');
+        $this->setName('abandoned_cart');
+        $this->setPhpName('AbandonedCart');
+        $this->setClassName('\\AbandonedCartReminder\\Model\\AbandonedCart');
+        $this->setPackage('AbandonedCart.Model');
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
         $this->addForeignKey('CART_ID', 'CartId', 'INTEGER', 'cart', 'ID', true, null, null);
         $this->addColumn('EMAIL_CLIENT', 'EmailClient', 'VARCHAR', false, 255, null);
         $this->addColumn('LOCALE', 'Locale', 'VARCHAR', false, 5, null);
-        $this->addColumn('ETAT_RAPPEL', 'EtatRappel', 'INTEGER', false, 1, 0);
+        $this->addColumn('status', 'status', 'INTEGER', false, 1, 0);
         $this->addColumn('LOGIN_TOKEN', 'LoginToken', 'VARCHAR', false, 255, null);
         $this->addColumn('LAST_UPDATE', 'LastUpdate', 'TIMESTAMP', false, null, null);
     } // initialize()
@@ -229,7 +229,7 @@ class PanierAbandonneTableMap extends TableMap
      */
     public static function getOMClass($withPrefix = true)
     {
-        return $withPrefix ? PanierAbandonneTableMap::CLASS_DEFAULT : PanierAbandonneTableMap::OM_CLASS;
+        return $withPrefix ? AbandonedCartTableMap::CLASS_DEFAULT : AbandonedCartTableMap::OM_CLASS;
     }
 
     /**
@@ -243,21 +243,21 @@ class PanierAbandonneTableMap extends TableMap
      *
      * @throws PropelException Any exceptions caught during processing will be
      *         rethrown wrapped into a PropelException.
-     * @return array (PanierAbandonne object, last column rank)
+     * @return array (AbandonedCart object, last column rank)
      */
     public static function populateObject($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        $key = PanierAbandonneTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
-        if (null !== ($obj = PanierAbandonneTableMap::getInstanceFromPool($key))) {
+        $key = AbandonedCartTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
+        if (null !== ($obj = AbandonedCartTableMap::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $offset, true); // rehydrate
-            $col = $offset + PanierAbandonneTableMap::NUM_HYDRATE_COLUMNS;
+            $col = $offset + AbandonedCartTableMap::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = PanierAbandonneTableMap::OM_CLASS;
+            $cls = AbandonedCartTableMap::OM_CLASS;
             $obj = new $cls();
             $col = $obj->hydrate($row, $offset, false, $indexType);
-            PanierAbandonneTableMap::addInstanceToPool($obj, $key);
+            AbandonedCartTableMap::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
@@ -280,8 +280,8 @@ class PanierAbandonneTableMap extends TableMap
         $cls = static::getOMClass(false);
         // populate the object(s)
         while ($row = $dataFetcher->fetch()) {
-            $key = PanierAbandonneTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
-            if (null !== ($obj = PanierAbandonneTableMap::getInstanceFromPool($key))) {
+            $key = AbandonedCartTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
+            if (null !== ($obj = AbandonedCartTableMap::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
@@ -290,7 +290,7 @@ class PanierAbandonneTableMap extends TableMap
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                PanierAbandonneTableMap::addInstanceToPool($obj, $key);
+                AbandonedCartTableMap::addInstanceToPool($obj, $key);
             } // if key exists
         }
 
@@ -311,19 +311,19 @@ class PanierAbandonneTableMap extends TableMap
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(PanierAbandonneTableMap::ID);
-            $criteria->addSelectColumn(PanierAbandonneTableMap::CART_ID);
-            $criteria->addSelectColumn(PanierAbandonneTableMap::EMAIL_CLIENT);
-            $criteria->addSelectColumn(PanierAbandonneTableMap::LOCALE);
-            $criteria->addSelectColumn(PanierAbandonneTableMap::ETAT_RAPPEL);
-            $criteria->addSelectColumn(PanierAbandonneTableMap::LOGIN_TOKEN);
-            $criteria->addSelectColumn(PanierAbandonneTableMap::LAST_UPDATE);
+            $criteria->addSelectColumn(AbandonedCartTableMap::ID);
+            $criteria->addSelectColumn(AbandonedCartTableMap::CART_ID);
+            $criteria->addSelectColumn(AbandonedCartTableMap::EMAIL_CLIENT);
+            $criteria->addSelectColumn(AbandonedCartTableMap::LOCALE);
+            $criteria->addSelectColumn(AbandonedCartTableMap::status);
+            $criteria->addSelectColumn(AbandonedCartTableMap::LOGIN_TOKEN);
+            $criteria->addSelectColumn(AbandonedCartTableMap::LAST_UPDATE);
         } else {
             $criteria->addSelectColumn($alias . '.ID');
             $criteria->addSelectColumn($alias . '.CART_ID');
             $criteria->addSelectColumn($alias . '.EMAIL_CLIENT');
             $criteria->addSelectColumn($alias . '.LOCALE');
-            $criteria->addSelectColumn($alias . '.ETAT_RAPPEL');
+            $criteria->addSelectColumn($alias . '.status');
             $criteria->addSelectColumn($alias . '.LOGIN_TOKEN');
             $criteria->addSelectColumn($alias . '.LAST_UPDATE');
         }
@@ -338,7 +338,7 @@ class PanierAbandonneTableMap extends TableMap
      */
     public static function getTableMap()
     {
-        return Propel::getServiceContainer()->getDatabaseMap(PanierAbandonneTableMap::DATABASE_NAME)->getTable(PanierAbandonneTableMap::TABLE_NAME);
+        return Propel::getServiceContainer()->getDatabaseMap(AbandonedCartTableMap::DATABASE_NAME)->getTable(AbandonedCartTableMap::TABLE_NAME);
     }
 
     /**
@@ -346,16 +346,16 @@ class PanierAbandonneTableMap extends TableMap
      */
     public static function buildTableMap()
     {
-      $dbMap = Propel::getServiceContainer()->getDatabaseMap(PanierAbandonneTableMap::DATABASE_NAME);
-      if (!$dbMap->hasTable(PanierAbandonneTableMap::TABLE_NAME)) {
-        $dbMap->addTableObject(new PanierAbandonneTableMap());
+      $dbMap = Propel::getServiceContainer()->getDatabaseMap(AbandonedCartTableMap::DATABASE_NAME);
+      if (!$dbMap->hasTable(AbandonedCartTableMap::TABLE_NAME)) {
+        $dbMap->addTableObject(new AbandonedCartTableMap());
       }
     }
 
     /**
-     * Performs a DELETE on the database, given a PanierAbandonne or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a AbandonedCart or Criteria object OR a primary key value.
      *
-     * @param mixed               $values Criteria or PanierAbandonne object or primary key or array of primary keys
+     * @param mixed               $values Criteria or AbandonedCart object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -366,25 +366,25 @@ class PanierAbandonneTableMap extends TableMap
      public static function doDelete($values, ConnectionInterface $con = null)
      {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(PanierAbandonneTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(AbandonedCartTableMap::DATABASE_NAME);
         }
 
         if ($values instanceof Criteria) {
             // rename for clarity
             $criteria = $values;
-        } elseif ($values instanceof \PaniersAbandonnes\Model\PanierAbandonne) { // it's a model object
+        } elseif ($values instanceof \AbandonedCartReminder\Model\AbandonedCart) { // it's a model object
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
-            $criteria = new Criteria(PanierAbandonneTableMap::DATABASE_NAME);
-            $criteria->add(PanierAbandonneTableMap::ID, (array) $values, Criteria::IN);
+            $criteria = new Criteria(AbandonedCartTableMap::DATABASE_NAME);
+            $criteria->add(AbandonedCartTableMap::ID, (array) $values, Criteria::IN);
         }
 
-        $query = PanierAbandonneQuery::create()->mergeWith($criteria);
+        $query = AbandonedCartQuery::create()->mergeWith($criteria);
 
-        if ($values instanceof Criteria) { PanierAbandonneTableMap::clearInstancePool();
+        if ($values instanceof Criteria) { AbandonedCartTableMap::clearInstancePool();
         } elseif (!is_object($values)) { // it's a primary key, or an array of pks
-            foreach ((array) $values as $singleval) { PanierAbandonneTableMap::removeInstanceFromPool($singleval);
+            foreach ((array) $values as $singleval) { AbandonedCartTableMap::removeInstanceFromPool($singleval);
             }
         }
 
@@ -392,20 +392,20 @@ class PanierAbandonneTableMap extends TableMap
     }
 
     /**
-     * Deletes all rows from the panier_abandonne table.
+     * Deletes all rows from the abandoned_cart table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).
      */
     public static function doDeleteAll(ConnectionInterface $con = null)
     {
-        return PanierAbandonneQuery::create()->doDeleteAll($con);
+        return AbandonedCartQuery::create()->doDeleteAll($con);
     }
 
     /**
-     * Performs an INSERT on the database, given a PanierAbandonne or Criteria object.
+     * Performs an INSERT on the database, given a AbandonedCart or Criteria object.
      *
-     * @param mixed               $criteria Criteria or PanierAbandonne object containing data that is used to create the INSERT statement.
+     * @param mixed               $criteria Criteria or AbandonedCart object containing data that is used to create the INSERT statement.
      * @param ConnectionInterface $con the ConnectionInterface connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -414,22 +414,22 @@ class PanierAbandonneTableMap extends TableMap
     public static function doInsert($criteria, ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(PanierAbandonneTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(AbandonedCartTableMap::DATABASE_NAME);
         }
 
         if ($criteria instanceof Criteria) {
             $criteria = clone $criteria; // rename for clarity
         } else {
-            $criteria = $criteria->buildCriteria(); // build Criteria from PanierAbandonne object
+            $criteria = $criteria->buildCriteria(); // build Criteria from AbandonedCart object
         }
 
-        if ($criteria->containsKey(PanierAbandonneTableMap::ID) && $criteria->keyContainsValue(PanierAbandonneTableMap::ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.PanierAbandonneTableMap::ID.')');
+        if ($criteria->containsKey(AbandonedCartTableMap::ID) && $criteria->keyContainsValue(AbandonedCartTableMap::ID) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.AbandonedCartTableMap::ID.')');
         }
 
 
         // Set the correct dbName
-        $query = PanierAbandonneQuery::create()->mergeWith($criteria);
+        $query = AbandonedCartQuery::create()->mergeWith($criteria);
 
         try {
             // use transaction because $criteria could contain info
@@ -445,7 +445,7 @@ class PanierAbandonneTableMap extends TableMap
         return $pk;
     }
 
-} // PanierAbandonneTableMap
+} // AbandonedCartTableMap
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-PanierAbandonneTableMap::buildTableMap();
+AbandonedCartTableMap::buildTableMap();

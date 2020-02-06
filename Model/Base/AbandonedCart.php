@@ -1,12 +1,12 @@
 <?php
 
-namespace PaniersAbandonnes\Model\Base;
+namespace AbandonedCartReminder\Model\Base;
 
 use \DateTime;
 use \Exception;
 use \PDO;
-use PaniersAbandonnes\Model\PanierAbandonneQuery as ChildPanierAbandonneQuery;
-use PaniersAbandonnes\Model\Map\PanierAbandonneTableMap;
+use AbandonedCartReminder\Model\AbandonedCartQuery as ChildAbandonedCartQuery;
+use AbandonedCartReminder\Model\Map\AbandonedCartTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
@@ -21,12 +21,12 @@ use Propel\Runtime\Util\PropelDateTime;
 use Thelia\Model\CartQuery;
 use Thelia\Model\Cart as ChildCart;
 
-abstract class PanierAbandonne implements ActiveRecordInterface
+abstract class AbandonedCart implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\PaniersAbandonnes\\Model\\Map\\PanierAbandonneTableMap';
+    const TABLE_MAP = '\\AbandonedCartReminder\\Model\\Map\\AbandonedCartTableMap';
 
 
     /**
@@ -80,11 +80,11 @@ abstract class PanierAbandonne implements ActiveRecordInterface
     protected $locale;
 
     /**
-     * The value for the etat_rappel field.
+     * The value for the status field.
      * Note: this column has a database default value of: 0
      * @var        int
      */
-    protected $etat_rappel;
+    protected $status;
 
     /**
      * The value for the login_token field.
@@ -119,11 +119,11 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      */
     public function applyDefaultValues()
     {
-        $this->etat_rappel = 0;
+        $this->status = 0;
     }
 
     /**
-     * Initializes internal state of PaniersAbandonnes\Model\Base\PanierAbandonne object.
+     * Initializes internal state of AbandonedCartReminder\Model\Base\AbandonedCart object.
      * @see applyDefaults()
      */
     public function __construct()
@@ -220,9 +220,9 @@ abstract class PanierAbandonne implements ActiveRecordInterface
     }
 
     /**
-     * Compares this with another <code>PanierAbandonne</code> instance.  If
-     * <code>obj</code> is an instance of <code>PanierAbandonne</code>, delegates to
-     * <code>equals(PanierAbandonne)</code>.  Otherwise, returns <code>false</code>.
+     * Compares this with another <code>AbandonedCart</code> instance.  If
+     * <code>obj</code> is an instance of <code>AbandonedCart</code>, delegates to
+     * <code>equals(AbandonedCart)</code>.  Otherwise, returns <code>false</code>.
      *
      * @param  mixed   $obj The object to compare to.
      * @return boolean Whether equal to the object specified.
@@ -305,7 +305,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      * @param string $name  The virtual column name
      * @param mixed  $value The value to give to the virtual column
      *
-     * @return PanierAbandonne The current object, for fluid interface
+     * @return AbandonedCart The current object, for fluid interface
      */
     public function setVirtualColumn($name, $value)
     {
@@ -337,7 +337,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      *                       or a format name ('XML', 'YAML', 'JSON', 'CSV')
      * @param string $data The source data to import from
      *
-     * @return PanierAbandonne The current object, for fluid interface
+     * @return AbandonedCart The current object, for fluid interface
      */
     public function importFrom($parser, $data)
     {
@@ -427,14 +427,14 @@ abstract class PanierAbandonne implements ActiveRecordInterface
     }
 
     /**
-     * Get the [etat_rappel] column value.
+     * Get the [status] column value.
      *
      * @return   int
      */
-    public function getEtatRappel()
+    public function getstatus()
     {
 
-        return $this->etat_rappel;
+        return $this->status;
     }
 
     /**
@@ -472,7 +472,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      * Set the value of [id] column.
      *
      * @param      int $v new value
-     * @return   \PaniersAbandonnes\Model\PanierAbandonne The current object (for fluent API support)
+     * @return   \AbandonedCartReminder\Model\AbandonedCart The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -482,7 +482,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[PanierAbandonneTableMap::ID] = true;
+            $this->modifiedColumns[AbandonedCartTableMap::ID] = true;
         }
 
 
@@ -493,7 +493,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      * Set the value of [cart_id] column.
      *
      * @param      int $v new value
-     * @return   \PaniersAbandonnes\Model\PanierAbandonne The current object (for fluent API support)
+     * @return   \AbandonedCartReminder\Model\AbandonedCart The current object (for fluent API support)
      */
     public function setCartId($v)
     {
@@ -503,7 +503,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
 
         if ($this->cart_id !== $v) {
             $this->cart_id = $v;
-            $this->modifiedColumns[PanierAbandonneTableMap::CART_ID] = true;
+            $this->modifiedColumns[AbandonedCartTableMap::CART_ID] = true;
         }
 
         if ($this->aCart !== null && $this->aCart->getId() !== $v) {
@@ -518,7 +518,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      * Set the value of [email_client] column.
      *
      * @param      string $v new value
-     * @return   \PaniersAbandonnes\Model\PanierAbandonne The current object (for fluent API support)
+     * @return   \AbandonedCartReminder\Model\AbandonedCart The current object (for fluent API support)
      */
     public function setEmailClient($v)
     {
@@ -528,7 +528,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
 
         if ($this->email_client !== $v) {
             $this->email_client = $v;
-            $this->modifiedColumns[PanierAbandonneTableMap::EMAIL_CLIENT] = true;
+            $this->modifiedColumns[AbandonedCartTableMap::EMAIL_CLIENT] = true;
         }
 
 
@@ -539,7 +539,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      * Set the value of [locale] column.
      *
      * @param      string $v new value
-     * @return   \PaniersAbandonnes\Model\PanierAbandonne The current object (for fluent API support)
+     * @return   \AbandonedCartReminder\Model\AbandonedCart The current object (for fluent API support)
      */
     public function setLocale($v)
     {
@@ -549,7 +549,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
 
         if ($this->locale !== $v) {
             $this->locale = $v;
-            $this->modifiedColumns[PanierAbandonneTableMap::LOCALE] = true;
+            $this->modifiedColumns[AbandonedCartTableMap::LOCALE] = true;
         }
 
 
@@ -557,31 +557,31 @@ abstract class PanierAbandonne implements ActiveRecordInterface
     } // setLocale()
 
     /**
-     * Set the value of [etat_rappel] column.
+     * Set the value of [status] column.
      *
      * @param      int $v new value
-     * @return   \PaniersAbandonnes\Model\PanierAbandonne The current object (for fluent API support)
+     * @return   \AbandonedCartReminder\Model\AbandonedCart The current object (for fluent API support)
      */
-    public function setEtatRappel($v)
+    public function setstatus($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->etat_rappel !== $v) {
-            $this->etat_rappel = $v;
-            $this->modifiedColumns[PanierAbandonneTableMap::ETAT_RAPPEL] = true;
+        if ($this->status !== $v) {
+            $this->status = $v;
+            $this->modifiedColumns[AbandonedCartTableMap::status] = true;
         }
 
 
         return $this;
-    } // setEtatRappel()
+    } // setstatus()
 
     /**
      * Set the value of [login_token] column.
      *
      * @param      string $v new value
-     * @return   \PaniersAbandonnes\Model\PanierAbandonne The current object (for fluent API support)
+     * @return   \AbandonedCartReminder\Model\AbandonedCart The current object (for fluent API support)
      */
     public function setLoginToken($v)
     {
@@ -591,7 +591,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
 
         if ($this->login_token !== $v) {
             $this->login_token = $v;
-            $this->modifiedColumns[PanierAbandonneTableMap::LOGIN_TOKEN] = true;
+            $this->modifiedColumns[AbandonedCartTableMap::LOGIN_TOKEN] = true;
         }
 
 
@@ -603,7 +603,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      *
      * @param      mixed $v string, integer (timestamp), or \DateTime value.
      *               Empty strings are treated as NULL.
-     * @return   \PaniersAbandonnes\Model\PanierAbandonne The current object (for fluent API support)
+     * @return   \AbandonedCartReminder\Model\AbandonedCart The current object (for fluent API support)
      */
     public function setLastUpdate($v)
     {
@@ -611,7 +611,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
         if ($this->last_update !== null || $dt !== null) {
             if ($dt !== $this->last_update) {
                 $this->last_update = $dt;
-                $this->modifiedColumns[PanierAbandonneTableMap::LAST_UPDATE] = true;
+                $this->modifiedColumns[AbandonedCartTableMap::LAST_UPDATE] = true;
             }
         } // if either are not null
 
@@ -629,7 +629,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      */
     public function hasOnlyDefaultValues()
     {
-            if ($this->etat_rappel !== 0) {
+            if ($this->status !== 0) {
                 return false;
             }
 
@@ -660,25 +660,25 @@ abstract class PanierAbandonne implements ActiveRecordInterface
         try {
 
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : PanierAbandonneTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : AbandonedCartTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
             $this->id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : PanierAbandonneTableMap::translateFieldName('CartId', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : AbandonedCartTableMap::translateFieldName('CartId', TableMap::TYPE_PHPNAME, $indexType)];
             $this->cart_id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : PanierAbandonneTableMap::translateFieldName('EmailClient', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : AbandonedCartTableMap::translateFieldName('EmailClient', TableMap::TYPE_PHPNAME, $indexType)];
             $this->email_client = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : PanierAbandonneTableMap::translateFieldName('Locale', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : AbandonedCartTableMap::translateFieldName('Locale', TableMap::TYPE_PHPNAME, $indexType)];
             $this->locale = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : PanierAbandonneTableMap::translateFieldName('EtatRappel', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->etat_rappel = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : AbandonedCartTableMap::translateFieldName('status', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->status = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : PanierAbandonneTableMap::translateFieldName('LoginToken', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : AbandonedCartTableMap::translateFieldName('LoginToken', TableMap::TYPE_PHPNAME, $indexType)];
             $this->login_token = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : PanierAbandonneTableMap::translateFieldName('LastUpdate', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : AbandonedCartTableMap::translateFieldName('LastUpdate', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
@@ -691,10 +691,10 @@ abstract class PanierAbandonne implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 7; // 7 = PanierAbandonneTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 7; // 7 = AbandonedCartTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException("Error populating \PaniersAbandonnes\Model\PanierAbandonne object", 0, $e);
+            throw new PropelException("Error populating \AbandonedCartReminder\Model\AbandonedCart object", 0, $e);
         }
     }
 
@@ -739,13 +739,13 @@ abstract class PanierAbandonne implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(PanierAbandonneTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(AbandonedCartTableMap::DATABASE_NAME);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $dataFetcher = ChildPanierAbandonneQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
+        $dataFetcher = ChildAbandonedCartQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
         $row = $dataFetcher->fetch();
         $dataFetcher->close();
         if (!$row) {
@@ -765,8 +765,8 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      * @param      ConnectionInterface $con
      * @return void
      * @throws PropelException
-     * @see PanierAbandonne::setDeleted()
-     * @see PanierAbandonne::isDeleted()
+     * @see AbandonedCartReminder::setDeleted()
+     * @see AbandonedCartReminder::isDeleted()
      */
     public function delete(ConnectionInterface $con = null)
     {
@@ -775,12 +775,12 @@ abstract class PanierAbandonne implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(PanierAbandonneTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(AbandonedCartTableMap::DATABASE_NAME);
         }
 
         $con->beginTransaction();
         try {
-            $deleteQuery = ChildPanierAbandonneQuery::create()
+            $deleteQuery = ChildAbandonedCartQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             if ($ret) {
@@ -817,7 +817,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(PanierAbandonneTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(AbandonedCartTableMap::DATABASE_NAME);
         }
 
         $con->beginTransaction();
@@ -837,7 +837,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
                     $this->postUpdate($con);
                 }
                 $this->postSave($con);
-                PanierAbandonneTableMap::addInstanceToPool($this);
+                AbandonedCartTableMap::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -910,36 +910,36 @@ abstract class PanierAbandonne implements ActiveRecordInterface
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[PanierAbandonneTableMap::ID] = true;
+        $this->modifiedColumns[AbandonedCartTableMap::ID] = true;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . PanierAbandonneTableMap::ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . AbandonedCartTableMap::ID . ')');
         }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(PanierAbandonneTableMap::ID)) {
+        if ($this->isColumnModified(AbandonedCartTableMap::ID)) {
             $modifiedColumns[':p' . $index++]  = 'ID';
         }
-        if ($this->isColumnModified(PanierAbandonneTableMap::CART_ID)) {
+        if ($this->isColumnModified(AbandonedCartTableMap::CART_ID)) {
             $modifiedColumns[':p' . $index++]  = 'CART_ID';
         }
-        if ($this->isColumnModified(PanierAbandonneTableMap::EMAIL_CLIENT)) {
+        if ($this->isColumnModified(AbandonedCartTableMap::EMAIL_CLIENT)) {
             $modifiedColumns[':p' . $index++]  = 'EMAIL_CLIENT';
         }
-        if ($this->isColumnModified(PanierAbandonneTableMap::LOCALE)) {
+        if ($this->isColumnModified(AbandonedCartTableMap::LOCALE)) {
             $modifiedColumns[':p' . $index++]  = 'LOCALE';
         }
-        if ($this->isColumnModified(PanierAbandonneTableMap::ETAT_RAPPEL)) {
-            $modifiedColumns[':p' . $index++]  = 'ETAT_RAPPEL';
+        if ($this->isColumnModified(AbandonedCartTableMap::status)) {
+            $modifiedColumns[':p' . $index++]  = 'status';
         }
-        if ($this->isColumnModified(PanierAbandonneTableMap::LOGIN_TOKEN)) {
+        if ($this->isColumnModified(AbandonedCartTableMap::LOGIN_TOKEN)) {
             $modifiedColumns[':p' . $index++]  = 'LOGIN_TOKEN';
         }
-        if ($this->isColumnModified(PanierAbandonneTableMap::LAST_UPDATE)) {
+        if ($this->isColumnModified(AbandonedCartTableMap::LAST_UPDATE)) {
             $modifiedColumns[':p' . $index++]  = 'LAST_UPDATE';
         }
 
         $sql = sprintf(
-            'INSERT INTO panier_abandonne (%s) VALUES (%s)',
+            'INSERT INTO abandoned_cart (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -960,8 +960,8 @@ abstract class PanierAbandonne implements ActiveRecordInterface
                     case 'LOCALE':
                         $stmt->bindValue($identifier, $this->locale, PDO::PARAM_STR);
                         break;
-                    case 'ETAT_RAPPEL':
-                        $stmt->bindValue($identifier, $this->etat_rappel, PDO::PARAM_INT);
+                    case 'status':
+                        $stmt->bindValue($identifier, $this->status, PDO::PARAM_INT);
                         break;
                     case 'LOGIN_TOKEN':
                         $stmt->bindValue($identifier, $this->login_token, PDO::PARAM_STR);
@@ -1015,7 +1015,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      */
     public function getByName($name, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = PanierAbandonneTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = AbandonedCartTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -1044,7 +1044,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
                 return $this->getLocale();
                 break;
             case 4:
-                return $this->getEtatRappel();
+                return $this->getstatus();
                 break;
             case 5:
                 return $this->getLoginToken();
@@ -1075,17 +1075,17 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      */
     public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
-        if (isset($alreadyDumpedObjects['PanierAbandonne'][$this->getPrimaryKey()])) {
+        if (isset($alreadyDumpedObjects['AbandonedCart'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['PanierAbandonne'][$this->getPrimaryKey()] = true;
-        $keys = PanierAbandonneTableMap::getFieldNames($keyType);
+        $alreadyDumpedObjects['AbandonedCart'][$this->getPrimaryKey()] = true;
+        $keys = AbandonedCartTableMap::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getCartId(),
             $keys[2] => $this->getEmailClient(),
             $keys[3] => $this->getLocale(),
-            $keys[4] => $this->getEtatRappel(),
+            $keys[4] => $this->getstatus(),
             $keys[5] => $this->getLoginToken(),
             $keys[6] => $this->getLastUpdate(),
         );
@@ -1116,7 +1116,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = PanierAbandonneTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = AbandonedCartTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
 
         return $this->setByPosition($pos, $value);
     }
@@ -1145,7 +1145,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
                 $this->setLocale($value);
                 break;
             case 4:
-                $this->setEtatRappel($value);
+                $this->setstatus($value);
                 break;
             case 5:
                 $this->setLoginToken($value);
@@ -1175,13 +1175,13 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      */
     public function fromArray($arr, $keyType = TableMap::TYPE_PHPNAME)
     {
-        $keys = PanierAbandonneTableMap::getFieldNames($keyType);
+        $keys = AbandonedCartTableMap::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setCartId($arr[$keys[1]]);
         if (array_key_exists($keys[2], $arr)) $this->setEmailClient($arr[$keys[2]]);
         if (array_key_exists($keys[3], $arr)) $this->setLocale($arr[$keys[3]]);
-        if (array_key_exists($keys[4], $arr)) $this->setEtatRappel($arr[$keys[4]]);
+        if (array_key_exists($keys[4], $arr)) $this->setstatus($arr[$keys[4]]);
         if (array_key_exists($keys[5], $arr)) $this->setLoginToken($arr[$keys[5]]);
         if (array_key_exists($keys[6], $arr)) $this->setLastUpdate($arr[$keys[6]]);
     }
@@ -1193,15 +1193,15 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(PanierAbandonneTableMap::DATABASE_NAME);
+        $criteria = new Criteria(AbandonedCartTableMap::DATABASE_NAME);
 
-        if ($this->isColumnModified(PanierAbandonneTableMap::ID)) $criteria->add(PanierAbandonneTableMap::ID, $this->id);
-        if ($this->isColumnModified(PanierAbandonneTableMap::CART_ID)) $criteria->add(PanierAbandonneTableMap::CART_ID, $this->cart_id);
-        if ($this->isColumnModified(PanierAbandonneTableMap::EMAIL_CLIENT)) $criteria->add(PanierAbandonneTableMap::EMAIL_CLIENT, $this->email_client);
-        if ($this->isColumnModified(PanierAbandonneTableMap::LOCALE)) $criteria->add(PanierAbandonneTableMap::LOCALE, $this->locale);
-        if ($this->isColumnModified(PanierAbandonneTableMap::ETAT_RAPPEL)) $criteria->add(PanierAbandonneTableMap::ETAT_RAPPEL, $this->etat_rappel);
-        if ($this->isColumnModified(PanierAbandonneTableMap::LOGIN_TOKEN)) $criteria->add(PanierAbandonneTableMap::LOGIN_TOKEN, $this->login_token);
-        if ($this->isColumnModified(PanierAbandonneTableMap::LAST_UPDATE)) $criteria->add(PanierAbandonneTableMap::LAST_UPDATE, $this->last_update);
+        if ($this->isColumnModified(AbandonedCartTableMap::ID)) $criteria->add(AbandonedCartTableMap::ID, $this->id);
+        if ($this->isColumnModified(AbandonedCartTableMap::CART_ID)) $criteria->add(AbandonedCartTableMap::CART_ID, $this->cart_id);
+        if ($this->isColumnModified(AbandonedCartTableMap::EMAIL_CLIENT)) $criteria->add(AbandonedCartTableMap::EMAIL_CLIENT, $this->email_client);
+        if ($this->isColumnModified(AbandonedCartTableMap::LOCALE)) $criteria->add(AbandonedCartTableMap::LOCALE, $this->locale);
+        if ($this->isColumnModified(AbandonedCartTableMap::status)) $criteria->add(AbandonedCartTableMap::status, $this->status);
+        if ($this->isColumnModified(AbandonedCartTableMap::LOGIN_TOKEN)) $criteria->add(AbandonedCartTableMap::LOGIN_TOKEN, $this->login_token);
+        if ($this->isColumnModified(AbandonedCartTableMap::LAST_UPDATE)) $criteria->add(AbandonedCartTableMap::LAST_UPDATE, $this->last_update);
 
         return $criteria;
     }
@@ -1216,8 +1216,8 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      */
     public function buildPkeyCriteria()
     {
-        $criteria = new Criteria(PanierAbandonneTableMap::DATABASE_NAME);
-        $criteria->add(PanierAbandonneTableMap::ID, $this->id);
+        $criteria = new Criteria(AbandonedCartTableMap::DATABASE_NAME);
+        $criteria->add(AbandonedCartTableMap::ID, $this->id);
 
         return $criteria;
     }
@@ -1258,7 +1258,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \PaniersAbandonnes\Model\PanierAbandonne (or compatible) type.
+     * @param      object $copyObj An object of \AbandonedCartReminder\Model\AbandonedCart (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
@@ -1268,7 +1268,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
         $copyObj->setCartId($this->getCartId());
         $copyObj->setEmailClient($this->getEmailClient());
         $copyObj->setLocale($this->getLocale());
-        $copyObj->setEtatRappel($this->getEtatRappel());
+        $copyObj->setstatus($this->getstatus());
         $copyObj->setLoginToken($this->getLoginToken());
         $copyObj->setLastUpdate($this->getLastUpdate());
         if ($makeNew) {
@@ -1286,7 +1286,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      * objects.
      *
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return                 \PaniersAbandonnes\Model\PanierAbandonne Clone of current object.
+     * @return                 \AbandonedCartReminder\Model\AbandonedCart Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1303,7 +1303,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      * Declares an association between this object and a ChildCart object.
      *
      * @param                  ChildCart $v
-     * @return                 \PaniersAbandonnes\Model\PanierAbandonne The current object (for fluent API support)
+     * @return                 \AbandonedCartReminder\Model\AbandonedCart The current object (for fluent API support)
      * @throws PropelException
      */
     public function setCart(ChildCart $v = null)
@@ -1319,7 +1319,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
         // Add binding for other direction of this n:n relationship.
         // If this object has already been added to the ChildCart object, it will not be re-added.
         if ($v !== null) {
-            $v->addPanierAbandonne($this);
+            $v->addAbandonedCart($this);
         }
 
 
@@ -1343,7 +1343,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aCart->addPanierAbandonnes($this);
+                $this->aCart->addAbandonedCarts($this);
              */
         }
 
@@ -1359,7 +1359,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
         $this->cart_id = null;
         $this->email_client = null;
         $this->locale = null;
-        $this->etat_rappel = null;
+        $this->status = null;
         $this->login_token = null;
         $this->last_update = null;
         $this->alreadyInSave = false;
@@ -1394,7 +1394,7 @@ abstract class PanierAbandonne implements ActiveRecordInterface
      */
     public function __toString()
     {
-        return (string) $this->exportTo(PanierAbandonneTableMap::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(AbandonedCartTableMap::DEFAULT_STRING_FORMAT);
     }
 
     /**

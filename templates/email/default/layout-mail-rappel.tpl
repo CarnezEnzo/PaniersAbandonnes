@@ -6,10 +6,10 @@
 {block name="pre-header"}{/block}
 
 {* Subject  *}
-{block name="email-subject"}{intl l="Alors comme ça, vous êtes du genre à oublier votre panier ?" d="paniersabandonnes"}{/block}
+{block name="email-subject"}{intl l="Alors comme ça, vous êtes du genre à oublier votre panier ?" d="abandonedcartreminder"}{/block}
 
 {* Title  *}
-{block name="email-title"}{intl l="Votre commande vous attend ! " d="paniersabandonnes"}{/block}
+{block name="email-title"}{intl l="Votre commande vous attend ! " d="abandonedcartreminder"}{/block}
 
 {* -- Declare assets directory, relative to template base directory --------- *}
 {declare_assets directory='assets'}
@@ -140,13 +140,13 @@
                             <div class="wrapper-panier">
                                 <table width="100%" class="panier">
                                 <tr>
-                                    <td class="head">{intl l="Product" d="paniersabandonnes"}</td>
-                                    <td class="head">{intl l="Product Name" d="paniersabandonnes"}</td>
-                                    <td class="head" style="text-align: center;">{intl l="Price" d="paniersabandonnes"}</td>
-                                    <td class="head" style="text-align: center;">{intl l="Amount" d="paniersabandonnes"}</td>
-                                    <td class="head" style="text-align: right;">&nbsp{intl l="Total" d="paniersabandonnes"}</td>
+                                    <td class="head">{intl l="Product" d="abandonedcartreminder"}</td>
+                                    <td class="head">{intl l="Product Name" d="abandonedcartreminder"}</td>
+                                    <td class="head" style="text-align: center;">{intl l="Price" d="abandonedcartreminder"}</td>
+                                    <td class="head" style="text-align: center;">{intl l="Amount" d="abandonedcartreminder"}</td>
+                                    <td class="head" style="text-align: right;">&nbsp{intl l="Total" d="abandonedcartreminder"}</td>
                                 </tr>
-                                {loop type="panierabandonne.cartitem" name="pa" cart_id=$cart_id}
+                                {loop type="AbandonedCart.cartitem" name="pa" cart_id=$cart_id}
                                     <tr>
                                         <td>
                                             {loop type="image" name="pi" source="product" source_id=$PRODUCT_ID width="118" height="85" limit="1" force_return="true"}
@@ -209,7 +209,7 @@
                                 <tr>
                                     <td colspan="999">
                                         <br>&nbsp;<br>
-                                        <p><a class="btn-panier" href="{url path="/back-to-cart/%token" token=$login_token}">{intl l="RETOURNER À MON PANIER" d="paniersabandonnes"}</a></p>
+                                        <p><a class="btn-panier" href="{url path="/back-to-cart/%token" token=$login_token}">{intl l="RETOURNER À MON PANIER" d="abandonedcartreminder"}</a></p>
                                     </td>
                                 </tr>
                             </table>

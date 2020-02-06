@@ -9,9 +9,9 @@
 /*                                                                                   */
 /*************************************************************************************/
 
-namespace PaniersAbandonnes\Controller;
+namespace AbandonedCartReminder\Controller;
 
-use PaniersAbandonnes\PaniersAbandonnes;
+use AbandonedCartReminder\AbandonedCartReminder;
 use Thelia\Controller\Admin\BaseAdminController;
 use Thelia\Core\Security\AccessManager;
 use Thelia\Core\Security\Resource\AdminResources;
@@ -22,11 +22,11 @@ class ConfigurationController extends BaseAdminController
 {
     public function configure()
     {
-        if (null !== $response = $this->checkAuth(AdminResources::MODULE, 'PaniersAbandonnes', AccessManager::UPDATE)) {
+        if (null !== $response = $this->checkAuth(AdminResources::MODULE, 'AbandonedCart', AccessManager::UPDATE)) {
             return $response;
         }
 
-        $configurationForm = $this->createForm('paniersabandonnes.configuration.form');
+        $configurationForm = $this->createForm('AbandonedCart.configuration.form');
 
         try {
             $form = $this->validateForm($configurationForm, "POST");
@@ -39,18 +39,18 @@ class ConfigurationController extends BaseAdminController
                     $value = implode(';', $value);
                 }
 
-                PaniersAbandonnes::setConfigValue($name, $value);
+                AbandonedCartReminder::setConfigValue($name, $value);
             }
 
             $this->adminLogAppend(
-                "paniersabandonnes.configuration.message",
+                "AbandonedCart.configuration.message",
                 AccessManager::UPDATE,
-                sprintf("PaniersAbandonnes configuration updated")
+                sprintf("AbandonedCart configuration updated")
             );
 
             if ($this->getRequest()->get('save_mode') == 'stay') {
                 // If we have to stay on the same page, redisplay the configuration page/
-                $url = '/admin/module/PaniersAbandonnes';
+                $url = '/admin/module/AbandonedCartReminder';
             } else {
                 // If we have to close the page, go back to the module back-office page.
                 $url = '/admin/modules';
@@ -64,12 +64,12 @@ class ConfigurationController extends BaseAdminController
         }
 
         $this->setupFormErrorContext(
-            $this->getTranslator()->trans("PaniersAbandonnes configuration", [], PaniersAbandonnes::DOMAIN_NAME),
+            $this->getTranslator()->trans("AbandonedCart configuration", [], AbandonedCartReminder::DOMAIN_NAME),
             $error_msg,
             $configurationForm,
             $ex
         );
 
-        return $this->generateRedirect(URL::getInstance()->absoluteUrl('/admin/module/PaniersAbandonnes'));
+        return $this->generateRedirect(URL::getInstance()->absoluteUrl('/admin/module/AbandonedCartReminder'));
     }
 }

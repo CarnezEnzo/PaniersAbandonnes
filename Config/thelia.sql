@@ -4,23 +4,23 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ---------------------------------------------------------------------
--- panier_abandonne
+-- abandoned_cart
 -- ---------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `panier_abandonne`;
+DROP TABLE IF EXISTS `abandoned_cart`;
 
-CREATE TABLE `panier_abandonne`
+CREATE TABLE `abandoned_cart`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `cart_id` INTEGER NOT NULL,
     `email_client` VARCHAR(255),
     `locale` VARCHAR(5),
-    `etat_rappel` INTEGER(1) DEFAULT 0,
+    `status` INTEGER(1) DEFAULT 0,
     `login_token` VARCHAR(255),
     `last_update` DATETIME,
     PRIMARY KEY (`id`),
-    INDEX `FI_panier_abandonne_cart_id` (`cart_id`),
-    CONSTRAINT `fk_panier_abandonne_cart_id`
+    INDEX `fi_abandoned_cart_cart_id` (`cart_id`),
+    CONSTRAINT `fk_abandoned_cart_cart_id`
         FOREIGN KEY (`cart_id`)
         REFERENCES `cart` (`id`)
         ON UPDATE RESTRICT

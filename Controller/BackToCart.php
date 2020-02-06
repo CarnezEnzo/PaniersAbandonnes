@@ -13,9 +13,9 @@
  * Date: 14/05/2017 11:31
  */
 
-namespace PaniersAbandonnes\Controller;
+namespace AbandonedCartReminder\Controller;
 
-use PaniersAbandonnes\Model\PanierAbandonneQuery;
+use AbandonedCartReminder\Model\AbandonedCartQuery;
 use Thelia\Controller\Front\BaseFrontController;
 use Thelia\Core\Event\Customer\CustomerLoginEvent;
 use Thelia\Core\Event\TheliaEvents;
@@ -26,7 +26,7 @@ class BackToCart extends BaseFrontController
 {
     public function loadCart($token)
     {
-        if (null !== $pa = PanierAbandonneQuery::create()->findOneByLoginToken($token)) {
+        if (null !== $pa = AbandonedCartQuery::create()->findOneByLoginToken($token)) {
             // Un client ? Le connecter.
             if (null !== $customer = CustomerQuery::create()->findOneByEmail($pa->getEmailClient())) {
                 $this->dispatch(TheliaEvents::CUSTOMER_LOGIN, new CustomerLoginEvent($customer));

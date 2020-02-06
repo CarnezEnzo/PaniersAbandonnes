@@ -2,21 +2,21 @@
     <div class="col-md-12 general-block-decorator">
         <div class="row">
             <div class="col-md-12 title title-without-tabs">
-                {intl d='paniersabandonnes' l="Configuration des paniers abandonnés"}
+                {intl d='abandonedcartreminder' l="Configuration des paniers abandonnés"}
             </div>
         </div>
         
         <div class="form-container">
             <div class="row">
                 <div class="col-md-12">
-                    {form name="paniersabandonnes.configuration.form"}
+                    {form name="AbandonedCart.configuration.form"}
                         
-                        <form action="{url path='/admin/module/PaniersAbandonnes/configure'}" method="post">
+                        <form action="{url path='/admin/module/AbandonedCartReminder/configure'}" method="post">
                             {form_hidden_fields form=$form}
                             
                             {include file = "includes/inner-form-toolbar.html"
                                 hide_flags = true
-                                page_url   = "{url path='/admin/module/PaniersAbandonnes'}"
+                                page_url   = "{url path='/admin/module/AbandonedCartReminder'}"
                                 close_url  = "{url path='/admin/modules'}"
                             }
                             

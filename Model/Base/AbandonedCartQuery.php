@@ -1,12 +1,12 @@
 <?php
 
-namespace PaniersAbandonnes\Model\Base;
+namespace AbandonedCartReminder\Model\Base;
 
 use \Exception;
 use \PDO;
-use PaniersAbandonnes\Model\PanierAbandonne as ChildPanierAbandonne;
-use PaniersAbandonnes\Model\PanierAbandonneQuery as ChildPanierAbandonneQuery;
-use PaniersAbandonnes\Model\Map\PanierAbandonneTableMap;
+use AbandonedCartReminder\Model\AbandonedCart as ChildAbandonedCart;
+use AbandonedCartReminder\Model\AbandonedCartQuery as ChildAbandonedCartQuery;
+use AbandonedCartReminder\Model\Map\AbandonedCartTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
@@ -18,83 +18,83 @@ use Propel\Runtime\Exception\PropelException;
 use Thelia\Model\Cart;
 
 /**
- * Base class that represents a query for the 'panier_abandonne' table.
+ * Base class that represents a query for the 'abandoned_cart' table.
  *
  *
  *
- * @method     ChildPanierAbandonneQuery orderById($order = Criteria::ASC) Order by the id column
- * @method     ChildPanierAbandonneQuery orderByCartId($order = Criteria::ASC) Order by the cart_id column
- * @method     ChildPanierAbandonneQuery orderByEmailClient($order = Criteria::ASC) Order by the email_client column
- * @method     ChildPanierAbandonneQuery orderByLocale($order = Criteria::ASC) Order by the locale column
- * @method     ChildPanierAbandonneQuery orderByEtatRappel($order = Criteria::ASC) Order by the etat_rappel column
- * @method     ChildPanierAbandonneQuery orderByLoginToken($order = Criteria::ASC) Order by the login_token column
- * @method     ChildPanierAbandonneQuery orderByLastUpdate($order = Criteria::ASC) Order by the last_update column
+ * @method     ChildAbandonedCartQuery orderById($order = Criteria::ASC) Order by the id column
+ * @method     ChildAbandonedCartQuery orderByCartId($order = Criteria::ASC) Order by the cart_id column
+ * @method     ChildAbandonedCartQuery orderByEmailClient($order = Criteria::ASC) Order by the email_client column
+ * @method     ChildAbandonedCartQuery orderByLocale($order = Criteria::ASC) Order by the locale column
+ * @method     ChildAbandonedCartQuery orderBystatus($order = Criteria::ASC) Order by the status column
+ * @method     ChildAbandonedCartQuery orderByLoginToken($order = Criteria::ASC) Order by the login_token column
+ * @method     ChildAbandonedCartQuery orderByLastUpdate($order = Criteria::ASC) Order by the last_update column
  *
- * @method     ChildPanierAbandonneQuery groupById() Group by the id column
- * @method     ChildPanierAbandonneQuery groupByCartId() Group by the cart_id column
- * @method     ChildPanierAbandonneQuery groupByEmailClient() Group by the email_client column
- * @method     ChildPanierAbandonneQuery groupByLocale() Group by the locale column
- * @method     ChildPanierAbandonneQuery groupByEtatRappel() Group by the etat_rappel column
- * @method     ChildPanierAbandonneQuery groupByLoginToken() Group by the login_token column
- * @method     ChildPanierAbandonneQuery groupByLastUpdate() Group by the last_update column
+ * @method     ChildAbandonedCartQuery groupById() Group by the id column
+ * @method     ChildAbandonedCartQuery groupByCartId() Group by the cart_id column
+ * @method     ChildAbandonedCartQuery groupByEmailClient() Group by the email_client column
+ * @method     ChildAbandonedCartQuery groupByLocale() Group by the locale column
+ * @method     ChildAbandonedCartQuery groupBystatus() Group by the status column
+ * @method     ChildAbandonedCartQuery groupByLoginToken() Group by the login_token column
+ * @method     ChildAbandonedCartQuery groupByLastUpdate() Group by the last_update column
  *
- * @method     ChildPanierAbandonneQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
- * @method     ChildPanierAbandonneQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
- * @method     ChildPanierAbandonneQuery innerJoin($relation) Adds a INNER JOIN clause to the query
+ * @method     ChildAbandonedCartQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
+ * @method     ChildAbandonedCartQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
+ * @method     ChildAbandonedCartQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     ChildPanierAbandonneQuery leftJoinCart($relationAlias = null) Adds a LEFT JOIN clause to the query using the Cart relation
- * @method     ChildPanierAbandonneQuery rightJoinCart($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Cart relation
- * @method     ChildPanierAbandonneQuery innerJoinCart($relationAlias = null) Adds a INNER JOIN clause to the query using the Cart relation
+ * @method     ChildAbandonedCartQuery leftJoinCart($relationAlias = null) Adds a LEFT JOIN clause to the query using the Cart relation
+ * @method     ChildAbandonedCartQuery rightJoinCart($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Cart relation
+ * @method     ChildAbandonedCartQuery innerJoinCart($relationAlias = null) Adds a INNER JOIN clause to the query using the Cart relation
  *
- * @method     ChildPanierAbandonne findOne(ConnectionInterface $con = null) Return the first ChildPanierAbandonne matching the query
- * @method     ChildPanierAbandonne findOneOrCreate(ConnectionInterface $con = null) Return the first ChildPanierAbandonne matching the query, or a new ChildPanierAbandonne object populated from the query conditions when no match is found
+ * @method     ChildAbandonedCart findOne(ConnectionInterface $con = null) Return the first ChildAbandonedCart matching the query
+ * @method     ChildAbandonedCart findOneOrCreate(ConnectionInterface $con = null) Return the first ChildAbandonedCart matching the query, or a new ChildAbandonedCart object populated from the query conditions when no match is found
  *
- * @method     ChildPanierAbandonne findOneById(int $id) Return the first ChildPanierAbandonne filtered by the id column
- * @method     ChildPanierAbandonne findOneByCartId(int $cart_id) Return the first ChildPanierAbandonne filtered by the cart_id column
- * @method     ChildPanierAbandonne findOneByEmailClient(string $email_client) Return the first ChildPanierAbandonne filtered by the email_client column
- * @method     ChildPanierAbandonne findOneByLocale(string $locale) Return the first ChildPanierAbandonne filtered by the locale column
- * @method     ChildPanierAbandonne findOneByEtatRappel(int $etat_rappel) Return the first ChildPanierAbandonne filtered by the etat_rappel column
- * @method     ChildPanierAbandonne findOneByLoginToken(string $login_token) Return the first ChildPanierAbandonne filtered by the login_token column
- * @method     ChildPanierAbandonne findOneByLastUpdate(string $last_update) Return the first ChildPanierAbandonne filtered by the last_update column
+ * @method     ChildAbandonedCart findOneById(int $id) Return the first ChildAbandonedCart filtered by the id column
+ * @method     ChildAbandonedCart findOneByCartId(int $cart_id) Return the first ChildAbandonedCart filtered by the cart_id column
+ * @method     ChildAbandonedCart findOneByEmailClient(string $email_client) Return the first ChildAbandonedCart filtered by the email_client column
+ * @method     ChildAbandonedCart findOneByLocale(string $locale) Return the first ChildAbandonedCart filtered by the locale column
+ * @method     ChildAbandonedCart findOneBystatus(int $status) Return the first ChildAbandonedCart filtered by the status column
+ * @method     ChildAbandonedCart findOneByLoginToken(string $login_token) Return the first ChildAbandonedCart filtered by the login_token column
+ * @method     ChildAbandonedCart findOneByLastUpdate(string $last_update) Return the first ChildAbandonedCart filtered by the last_update column
  *
- * @method     array findById(int $id) Return ChildPanierAbandonne objects filtered by the id column
- * @method     array findByCartId(int $cart_id) Return ChildPanierAbandonne objects filtered by the cart_id column
- * @method     array findByEmailClient(string $email_client) Return ChildPanierAbandonne objects filtered by the email_client column
- * @method     array findByLocale(string $locale) Return ChildPanierAbandonne objects filtered by the locale column
- * @method     array findByEtatRappel(int $etat_rappel) Return ChildPanierAbandonne objects filtered by the etat_rappel column
- * @method     array findByLoginToken(string $login_token) Return ChildPanierAbandonne objects filtered by the login_token column
- * @method     array findByLastUpdate(string $last_update) Return ChildPanierAbandonne objects filtered by the last_update column
+ * @method     array findById(int $id) Return ChildAbandonedCart objects filtered by the id column
+ * @method     array findByCartId(int $cart_id) Return ChildAbandonedCart objects filtered by the cart_id column
+ * @method     array findByEmailClient(string $email_client) Return ChildAbandonedCart objects filtered by the email_client column
+ * @method     array findByLocale(string $locale) Return ChildAbandonedCart objects filtered by the locale column
+ * @method     array findBystatus(int $status) Return ChildAbandonedCart objects filtered by the status column
+ * @method     array findByLoginToken(string $login_token) Return ChildAbandonedCart objects filtered by the login_token column
+ * @method     array findByLastUpdate(string $last_update) Return ChildAbandonedCart objects filtered by the last_update column
  *
  */
-abstract class PanierAbandonneQuery extends ModelCriteria
+abstract class AbandonedCartQuery extends ModelCriteria
 {
 
     /**
-     * Initializes internal state of \PaniersAbandonnes\Model\Base\PanierAbandonneQuery object.
+     * Initializes internal state of \AbandonedCartReminder\Model\Base\AbandonedCartQuery object.
      *
      * @param     string $dbName The database name
      * @param     string $modelName The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
-    public function __construct($dbName = 'thelia', $modelName = '\\PaniersAbandonnes\\Model\\PanierAbandonne', $modelAlias = null)
+    public function __construct($dbName = 'thelia', $modelName = '\\AbandonedCartReminder\\Model\\AbandonedCart', $modelAlias = null)
     {
         parent::__construct($dbName, $modelName, $modelAlias);
     }
 
     /**
-     * Returns a new ChildPanierAbandonneQuery object.
+     * Returns a new ChildAbandonedCartQuery object.
      *
      * @param     string $modelAlias The alias of a model in the query
      * @param     Criteria $criteria Optional Criteria to build the query from
      *
-     * @return ChildPanierAbandonneQuery
+     * @return ChildAbandonedCartQuery
      */
     public static function create($modelAlias = null, $criteria = null)
     {
-        if ($criteria instanceof \PaniersAbandonnes\Model\PanierAbandonneQuery) {
+        if ($criteria instanceof \AbandonedCartReminder\Model\AbandonedCartQuery) {
             return $criteria;
         }
-        $query = new \PaniersAbandonnes\Model\PanierAbandonneQuery();
+        $query = new \AbandonedCartReminder\Model\AbandonedCartQuery();
         if (null !== $modelAlias) {
             $query->setModelAlias($modelAlias);
         }
@@ -117,19 +117,19 @@ abstract class PanierAbandonneQuery extends ModelCriteria
      * @param mixed $key Primary key to use for the query
      * @param ConnectionInterface $con an optional connection object
      *
-     * @return ChildPanierAbandonne|array|mixed the result, formatted by the current formatter
+     * @return ChildAbandonedCart|array|mixed the result, formatted by the current formatter
      */
     public function findPk($key, $con = null)
     {
         if ($key === null) {
             return null;
         }
-        if ((null !== ($obj = PanierAbandonneTableMap::getInstanceFromPool((string) $key))) && !$this->formatter) {
+        if ((null !== ($obj = AbandonedCartTableMap::getInstanceFromPool((string) $key))) && !$this->formatter) {
             // the object is already in the instance pool
             return $obj;
         }
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(PanierAbandonneTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(AbandonedCartTableMap::DATABASE_NAME);
         }
         $this->basePreSelect($con);
         if ($this->formatter || $this->modelAlias || $this->with || $this->select
@@ -148,11 +148,11 @@ abstract class PanierAbandonneQuery extends ModelCriteria
      * @param     mixed $key Primary key to use for the query
      * @param     ConnectionInterface $con A connection object
      *
-     * @return   ChildPanierAbandonne A model object, or null if the key is not found
+     * @return   ChildAbandonedCart A model object, or null if the key is not found
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT ID, CART_ID, EMAIL_CLIENT, LOCALE, ETAT_RAPPEL, LOGIN_TOKEN, LAST_UPDATE FROM panier_abandonne WHERE ID = :p0';
+        $sql = 'SELECT ID, CART_ID, EMAIL_CLIENT, LOCALE, status, LOGIN_TOKEN, LAST_UPDATE FROM abandoned_cart WHERE ID = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -163,9 +163,9 @@ abstract class PanierAbandonneQuery extends ModelCriteria
         }
         $obj = null;
         if ($row = $stmt->fetch(\PDO::FETCH_NUM)) {
-            $obj = new ChildPanierAbandonne();
+            $obj = new ChildAbandonedCart();
             $obj->hydrate($row);
-            PanierAbandonneTableMap::addInstanceToPool($obj, (string) $key);
+            AbandonedCartTableMap::addInstanceToPool($obj, (string) $key);
         }
         $stmt->closeCursor();
 
@@ -178,7 +178,7 @@ abstract class PanierAbandonneQuery extends ModelCriteria
      * @param     mixed $key Primary key to use for the query
      * @param     ConnectionInterface $con A connection object
      *
-     * @return ChildPanierAbandonne|array|mixed the result, formatted by the current formatter
+     * @return ChildAbandonedCart|array|mixed the result, formatted by the current formatter
      */
     protected function findPkComplex($key, $con)
     {
@@ -220,12 +220,12 @@ abstract class PanierAbandonneQuery extends ModelCriteria
      *
      * @param     mixed $key Primary key to use for the query
      *
-     * @return ChildPanierAbandonneQuery The current query, for fluid interface
+     * @return ChildAbandonedCartQuery The current query, for fluid interface
      */
     public function filterByPrimaryKey($key)
     {
 
-        return $this->addUsingAlias(PanierAbandonneTableMap::ID, $key, Criteria::EQUAL);
+        return $this->addUsingAlias(AbandonedCartTableMap::ID, $key, Criteria::EQUAL);
     }
 
     /**
@@ -233,12 +233,12 @@ abstract class PanierAbandonneQuery extends ModelCriteria
      *
      * @param     array $keys The list of primary key to use for the query
      *
-     * @return ChildPanierAbandonneQuery The current query, for fluid interface
+     * @return ChildAbandonedCartQuery The current query, for fluid interface
      */
     public function filterByPrimaryKeys($keys)
     {
 
-        return $this->addUsingAlias(PanierAbandonneTableMap::ID, $keys, Criteria::IN);
+        return $this->addUsingAlias(AbandonedCartTableMap::ID, $keys, Criteria::IN);
     }
 
     /**
@@ -257,18 +257,18 @@ abstract class PanierAbandonneQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return ChildPanierAbandonneQuery The current query, for fluid interface
+     * @return ChildAbandonedCartQuery The current query, for fluid interface
      */
     public function filterById($id = null, $comparison = null)
     {
         if (is_array($id)) {
             $useMinMax = false;
             if (isset($id['min'])) {
-                $this->addUsingAlias(PanierAbandonneTableMap::ID, $id['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AbandonedCartTableMap::ID, $id['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($id['max'])) {
-                $this->addUsingAlias(PanierAbandonneTableMap::ID, $id['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AbandonedCartTableMap::ID, $id['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -279,7 +279,7 @@ abstract class PanierAbandonneQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(PanierAbandonneTableMap::ID, $id, $comparison);
+        return $this->addUsingAlias(AbandonedCartTableMap::ID, $id, $comparison);
     }
 
     /**
@@ -300,18 +300,18 @@ abstract class PanierAbandonneQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return ChildPanierAbandonneQuery The current query, for fluid interface
+     * @return ChildAbandonedCartQuery The current query, for fluid interface
      */
     public function filterByCartId($cartId = null, $comparison = null)
     {
         if (is_array($cartId)) {
             $useMinMax = false;
             if (isset($cartId['min'])) {
-                $this->addUsingAlias(PanierAbandonneTableMap::CART_ID, $cartId['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AbandonedCartTableMap::CART_ID, $cartId['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($cartId['max'])) {
-                $this->addUsingAlias(PanierAbandonneTableMap::CART_ID, $cartId['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AbandonedCartTableMap::CART_ID, $cartId['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -322,7 +322,7 @@ abstract class PanierAbandonneQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(PanierAbandonneTableMap::CART_ID, $cartId, $comparison);
+        return $this->addUsingAlias(AbandonedCartTableMap::CART_ID, $cartId, $comparison);
     }
 
     /**
@@ -338,7 +338,7 @@ abstract class PanierAbandonneQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return ChildPanierAbandonneQuery The current query, for fluid interface
+     * @return ChildAbandonedCartQuery The current query, for fluid interface
      */
     public function filterByEmailClient($emailClient = null, $comparison = null)
     {
@@ -351,7 +351,7 @@ abstract class PanierAbandonneQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(PanierAbandonneTableMap::EMAIL_CLIENT, $emailClient, $comparison);
+        return $this->addUsingAlias(AbandonedCartTableMap::EMAIL_CLIENT, $emailClient, $comparison);
     }
 
     /**
@@ -367,7 +367,7 @@ abstract class PanierAbandonneQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return ChildPanierAbandonneQuery The current query, for fluid interface
+     * @return ChildAbandonedCartQuery The current query, for fluid interface
      */
     public function filterByLocale($locale = null, $comparison = null)
     {
@@ -380,37 +380,37 @@ abstract class PanierAbandonneQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(PanierAbandonneTableMap::LOCALE, $locale, $comparison);
+        return $this->addUsingAlias(AbandonedCartTableMap::LOCALE, $locale, $comparison);
     }
 
     /**
-     * Filter the query on the etat_rappel column
+     * Filter the query on the status column
      *
      * Example usage:
      * <code>
-     * $query->filterByEtatRappel(1234); // WHERE etat_rappel = 1234
-     * $query->filterByEtatRappel(array(12, 34)); // WHERE etat_rappel IN (12, 34)
-     * $query->filterByEtatRappel(array('min' => 12)); // WHERE etat_rappel > 12
+     * $query->filterBystatus(1234); // WHERE status = 1234
+     * $query->filterBystatus(array(12, 34)); // WHERE status IN (12, 34)
+     * $query->filterBystatus(array('min' => 12)); // WHERE status > 12
      * </code>
      *
-     * @param     mixed $etatRappel The value to use as filter.
+     * @param     mixed $status The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return ChildPanierAbandonneQuery The current query, for fluid interface
+     * @return ChildAbandonedCartQuery The current query, for fluid interface
      */
-    public function filterByEtatRappel($etatRappel = null, $comparison = null)
+    public function filterBystatus($status = null, $comparison = null)
     {
-        if (is_array($etatRappel)) {
+        if (is_array($status)) {
             $useMinMax = false;
-            if (isset($etatRappel['min'])) {
-                $this->addUsingAlias(PanierAbandonneTableMap::ETAT_RAPPEL, $etatRappel['min'], Criteria::GREATER_EQUAL);
+            if (isset($status['min'])) {
+                $this->addUsingAlias(AbandonedCartTableMap::status, $status['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($etatRappel['max'])) {
-                $this->addUsingAlias(PanierAbandonneTableMap::ETAT_RAPPEL, $etatRappel['max'], Criteria::LESS_EQUAL);
+            if (isset($status['max'])) {
+                $this->addUsingAlias(AbandonedCartTableMap::status, $status['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -421,7 +421,7 @@ abstract class PanierAbandonneQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(PanierAbandonneTableMap::ETAT_RAPPEL, $etatRappel, $comparison);
+        return $this->addUsingAlias(AbandonedCartTableMap::status, $status, $comparison);
     }
 
     /**
@@ -437,7 +437,7 @@ abstract class PanierAbandonneQuery extends ModelCriteria
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return ChildPanierAbandonneQuery The current query, for fluid interface
+     * @return ChildAbandonedCartQuery The current query, for fluid interface
      */
     public function filterByLoginToken($loginToken = null, $comparison = null)
     {
@@ -450,7 +450,7 @@ abstract class PanierAbandonneQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(PanierAbandonneTableMap::LOGIN_TOKEN, $loginToken, $comparison);
+        return $this->addUsingAlias(AbandonedCartTableMap::LOGIN_TOKEN, $loginToken, $comparison);
     }
 
     /**
@@ -471,18 +471,18 @@ abstract class PanierAbandonneQuery extends ModelCriteria
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return ChildPanierAbandonneQuery The current query, for fluid interface
+     * @return ChildAbandonedCartQuery The current query, for fluid interface
      */
     public function filterByLastUpdate($lastUpdate = null, $comparison = null)
     {
         if (is_array($lastUpdate)) {
             $useMinMax = false;
             if (isset($lastUpdate['min'])) {
-                $this->addUsingAlias(PanierAbandonneTableMap::LAST_UPDATE, $lastUpdate['min'], Criteria::GREATER_EQUAL);
+                $this->addUsingAlias(AbandonedCartTableMap::LAST_UPDATE, $lastUpdate['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
             if (isset($lastUpdate['max'])) {
-                $this->addUsingAlias(PanierAbandonneTableMap::LAST_UPDATE, $lastUpdate['max'], Criteria::LESS_EQUAL);
+                $this->addUsingAlias(AbandonedCartTableMap::LAST_UPDATE, $lastUpdate['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -493,7 +493,7 @@ abstract class PanierAbandonneQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(PanierAbandonneTableMap::LAST_UPDATE, $lastUpdate, $comparison);
+        return $this->addUsingAlias(AbandonedCartTableMap::LAST_UPDATE, $lastUpdate, $comparison);
     }
 
     /**
@@ -502,20 +502,20 @@ abstract class PanierAbandonneQuery extends ModelCriteria
      * @param \Thelia\Model\Cart|ObjectCollection $cart The related object(s) to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
-     * @return ChildPanierAbandonneQuery The current query, for fluid interface
+     * @return ChildAbandonedCartQuery The current query, for fluid interface
      */
     public function filterByCart($cart, $comparison = null)
     {
         if ($cart instanceof \Thelia\Model\Cart) {
             return $this
-                ->addUsingAlias(PanierAbandonneTableMap::CART_ID, $cart->getId(), $comparison);
+                ->addUsingAlias(AbandonedCartTableMap::CART_ID, $cart->getId(), $comparison);
         } elseif ($cart instanceof ObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(PanierAbandonneTableMap::CART_ID, $cart->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(AbandonedCartTableMap::CART_ID, $cart->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
             throw new PropelException('filterByCart() only accepts arguments of type \Thelia\Model\Cart or Collection');
         }
@@ -527,7 +527,7 @@ abstract class PanierAbandonneQuery extends ModelCriteria
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return ChildPanierAbandonneQuery The current query, for fluid interface
+     * @return ChildAbandonedCartQuery The current query, for fluid interface
      */
     public function joinCart($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
@@ -574,21 +574,21 @@ abstract class PanierAbandonneQuery extends ModelCriteria
     /**
      * Exclude object from result
      *
-     * @param   ChildPanierAbandonne $panierAbandonne Object to remove from the list of results
+     * @param   ChildAbandonedCart $abandonedCart Object to remove from the list of results
      *
-     * @return ChildPanierAbandonneQuery The current query, for fluid interface
+     * @return ChildAbandonedCartQuery The current query, for fluid interface
      */
-    public function prune($panierAbandonne = null)
+    public function prune($abandonedCart = null)
     {
-        if ($panierAbandonne) {
-            $this->addUsingAlias(PanierAbandonneTableMap::ID, $panierAbandonne->getId(), Criteria::NOT_EQUAL);
+        if ($abandonedCart) {
+            $this->addUsingAlias(AbandonedCartTableMap::ID, $abandonedCart->getId(), Criteria::NOT_EQUAL);
         }
 
         return $this;
     }
 
     /**
-     * Deletes all rows from the panier_abandonne table.
+     * Deletes all rows from the abandoned_cart table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).
@@ -596,7 +596,7 @@ abstract class PanierAbandonneQuery extends ModelCriteria
     public function doDeleteAll(ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(PanierAbandonneTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(AbandonedCartTableMap::DATABASE_NAME);
         }
         $affectedRows = 0; // initialize var to track total num of affected rows
         try {
@@ -607,8 +607,8 @@ abstract class PanierAbandonneQuery extends ModelCriteria
             // Because this db requires some delete cascade/set null emulation, we have to
             // clear the cached instance *after* the emulation has happened (since
             // instances get re-added by the select statement contained therein).
-            PanierAbandonneTableMap::clearInstancePool();
-            PanierAbandonneTableMap::clearRelatedInstancePool();
+            AbandonedCartTableMap::clearInstancePool();
+            AbandonedCartTableMap::clearRelatedInstancePool();
 
             $con->commit();
         } catch (PropelException $e) {
@@ -620,9 +620,9 @@ abstract class PanierAbandonneQuery extends ModelCriteria
     }
 
     /**
-     * Performs a DELETE on the database, given a ChildPanierAbandonne or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a ChildAbandonedCart or Criteria object OR a primary key value.
      *
-     * @param mixed               $values Criteria or ChildPanierAbandonne object or primary key or array of primary keys
+     * @param mixed               $values Criteria or ChildAbandonedCart object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -633,13 +633,13 @@ abstract class PanierAbandonneQuery extends ModelCriteria
      public function delete(ConnectionInterface $con = null)
      {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(PanierAbandonneTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(AbandonedCartTableMap::DATABASE_NAME);
         }
 
         $criteria = $this;
 
         // Set the correct dbName
-        $criteria->setDbName(PanierAbandonneTableMap::DATABASE_NAME);
+        $criteria->setDbName(AbandonedCartTableMap::DATABASE_NAME);
 
         $affectedRows = 0; // initialize var to track total num of affected rows
 
@@ -649,10 +649,10 @@ abstract class PanierAbandonneQuery extends ModelCriteria
             $con->beginTransaction();
 
 
-        PanierAbandonneTableMap::removeInstanceFromPool($criteria);
+        AbandonedCartTableMap::removeInstanceFromPool($criteria);
 
             $affectedRows += ModelCriteria::delete($con);
-            PanierAbandonneTableMap::clearRelatedInstancePool();
+            AbandonedCartTableMap::clearRelatedInstancePool();
             $con->commit();
 
             return $affectedRows;
@@ -662,4 +662,4 @@ abstract class PanierAbandonneQuery extends ModelCriteria
         }
     }
 
-} // PanierAbandonneQuery
+} // AbandonedCartQuery

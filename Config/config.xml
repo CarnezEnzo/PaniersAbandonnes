@@ -5,20 +5,20 @@
         xsi:schemaLocation="http://thelia.net/schema/dic/config http://thelia.net/schema/dic/config/thelia-1.0.xsd">
 
     <forms>
-        <form name="paniersabandonnes.configuration.form" class="PaniersAbandonnes\Form\ConfigurationForm" />
+        <form name="AbandonedCart.configuration.form" class="AbandonedCartReminder\Form\ConfigurationForm" />
     </forms>
 
     <loops>
-        <loop name="panierabandonne.cartinfo" class="PaniersAbandonnes\Loop\CartInfo" />
-        <loop name="panierabandonne.cartitem" class="PaniersAbandonnes\Loop\Cart" />
+        <loop name="AbandonedCart.cartinfo" class="AbandonedCartReminder\Loop\CartInfo" />
+        <loop name="AbandonedCart.cartitem" class="AbandonedCartReminder\Loop\Cart" />
     </loops>
 
     <commands>
-        <command class="PaniersAbandonnes\Command\ExaminerPaniers" />
+        <command class="AbandonedCartReminder\Command\ExamineAbandonedCart" />
     </commands>
 
     <services>
-        <service id="paniersabandonnes.listener" class="PaniersAbandonnes\EventListeners\ListenerManager">
+        <service id="AbandonedCart.listener" class="AbandonedCartReminder\EventListeners\ListenerManager">
             <argument type="service" id="thelia.securityContext"/>
             <argument type="service" id="request_stack"/>
             <argument type="service" id="mailer"/>
@@ -27,7 +27,7 @@
     </services>
 
     <hooks>
-        <hook id="paniersabandonnes.hook.module_configuration" class="PaniersAbandonnes\Hook\HookManager">
+        <hook id="AbandonedCart.hook.module_configuration" class="AbandonedCartReminder\Hook\HookManager">
             <tag name="hook.event_listener" event="module.configuration" type="back" method="onModuleConfigure" />
         </hook>
     </hooks>

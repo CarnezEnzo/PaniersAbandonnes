@@ -10,7 +10,7 @@
 /*      file that was distributed with this source code.                             */
 /*************************************************************************************/
 
-namespace PaniersAbandonnes\Loop;
+namespace AbandonedCartReminder\Loop;
 
 use Thelia\Core\Template\Element\BaseLoop;
 use Thelia\Core\Template\Element\LoopResult;
